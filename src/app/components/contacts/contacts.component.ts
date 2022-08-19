@@ -17,11 +17,11 @@ import {SearchService} from "../../common/search.service";
 
 export class ContactsComponent implements OnInit, OnDestroy {
   contacts = [
-    {"id": 1, "name": "Ihor", "lastName": "Lisovyi","number": "0985784256","email": "lisovyi@gmail.com", "dateOfBirth": "18.03.1968"},
-    {"id": 2, "name": "Uliana", "lastName": "Lisova","number": "0985784256","email": "lisova@gmail.com", "dateOfBirth": "16.03.2004"},
-    {"id": 3, "name": "Lidiya", "lastName": "Lisova","number": "0985784256","email": "lisova2@gmail.com", "dateOfBirth": "05.06.1998"},
-    {"id": 4, "name": "Ivan", "lastName": "Tkach","number": "0985784256","email": "lisova2@gmail.com", "dateOfBirth": "05.06.1998"},
-    {"id": 5, "name": "Petro", "lastName": "Gritsiv","number": "0985784256","email": "lisova2@gmail.com", "dateOfBirth": "05.06.1998"},
+    {"id": "1", "name": "Ihor", "lastName": "Lisovyi","number": "0985784256","email": "lisovyi@gmail.com", "dateOfBirth": "18.03.1968"},
+    {"id": "2", "name": "Uliana", "lastName": "Lisova","number": "0985784256","email": "lisova@gmail.com", "dateOfBirth": "16.03.2004"},
+    {"id": "3", "name": "Lidiya", "lastName": "Lisova","number": "0985784256","email": "lisova2@gmail.com", "dateOfBirth": "05.06.1998"},
+    {"id": "4", "name": "Ivan", "lastName": "Tkach","number": "0985784256","email": "lisova2@gmail.com", "dateOfBirth": "05.06.1998"},
+    {"id": "5", "name": "Petro", "lastName": "Gritsiv","number": "0985784256","email": "lisova2@gmail.com", "dateOfBirth": "05.06.1998"},
   ];
   localStorageContacts: IContact[];
   form: FormGroup;
@@ -31,7 +31,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
 
   constructor(private searchMenusService: SearchService) {
     this._createForm()
-    let con = JSON.parse(localStorage.getItem('contacts') || '[{"id": 1, "name": "Ihor", "lastName": "Lisovyi","number": "0985784256","email": "lisovyi@gmail.com", "dateOfBirth": "18.03.1968"},{"id": 2, "name": "Uliana", "lastName": "Lisova","number": "0985784256","email": "lisova@gmail.com", "dateOfBirth": "16.03.2004"},{"id": 3, "name": "Lidiya", "lastName": "Lisova","number": "0985784256","email": "lisova2@gmail.com", "dateOfBirth": "05.06.1998"},{"id": 4, "name": "Ivan", "lastName": "Tkach","number": "0985784256","email": "lisova2@gmail.com", "dateOfBirth": "05.06.1998"},{"id": 5, "name": "Petro", "lastName": "Gritsiv","number": "0985784256","email": "lisova2@gmail.com", "dateOfBirth": "05.06.1998"}]')
+    let con = JSON.parse(localStorage.getItem('contacts') || '[{"id": "1", "name": "Ihor", "lastName": "Lisovyi","number": "0985784256","email": "lisovyi@gmail.com", "dateOfBirth": "18.03.1968"},{"id": "2", "name": "Uliana", "lastName": "Lisova","number": "0985784256","email": "lisova@gmail.com", "dateOfBirth": "16.03.2004"},{"id": "3", "name": "Lidiya", "lastName": "Lisova","number": "0985784256","email": "lisova2@gmail.com", "dateOfBirth": "05.06.1998"},{"id": "4", "name": "Ivan", "lastName": "Tkach","number": "0985784256","email": "lisova2@gmail.com", "dateOfBirth": "05.06.1998"},{"id": "5", "name": "Petro", "lastName": "Gritsiv","number": "0985784256","email": "lisova2@gmail.com", "dateOfBirth": "05.06.1998"}]')
     this.localStorageContacts = con;
     this.contacts = con;
   }
@@ -64,6 +64,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
       this.contactForUpdate = null;
       this.form.reset();
     }
+    location.reload();
   }
 
   _createForm(): void {
@@ -76,10 +77,12 @@ export class ContactsComponent implements OnInit, OnDestroy {
     })
   }
 
-  delete(id: number): void {
+  delete(id: string): void {
     const index = this.localStorageContacts.findIndex(a => a.id === id);
     this.localStorageContacts.splice(index,1);
+    console.log(this.localStorageContacts);
     localStorage.setItem('contacts', JSON.stringify(this.localStorageContacts))
+    location.reload()
   }
 
   update(contact: IContact): void {

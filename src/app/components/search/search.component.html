@@ -2,7 +2,7 @@
   <div class="head-content">
     <!--Getting contact name input from the user-->
     <input [(ngModel)]="contactName" type="text" placeholder="Search..." class="form-control" #input/><br>
-    <button (click)="onSearch(input.value)">SEARCH</button>
+    <button (click)="onSearch(input.value); input.value = ''">SEARCH</button>
   </div>
 </div>
 

@@ -8,3 +8,4 @@
 /dataSources.local.xml
 package-lock.json
 .idea
+.angular

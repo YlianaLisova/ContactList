@@ -16,8 +16,11 @@ export class ContactComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(({id}) => {
         this.localstorageContacts = JSON.parse(localStorage.getItem('contacts') || '[]');
-        const contactFromLS = this.localstorageContacts.find(con => con.id === id);
-        this.contact = contactFromLS as IContact;
+      console.log(this.localstorageContacts);
+      const contactFromLS = this.localstorageContacts.find(con => con.id === id);
+      console.log(this.localstorageContacts);
+      console.log(contactFromLS);
+      this.contact = contactFromLS as IContact;
     })
   }
 
