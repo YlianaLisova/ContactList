@@ -5,9 +5,10 @@ import { AppComponent } from './app.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import {AppRoutingModule} from "./app-routing.module";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { HeaderComponent } from './components/header/header.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
@@ -15,12 +16,14 @@ import { ContactComponent } from './components/contact/contact.component';
     ContactsComponent,
     MainLayoutComponent,
     HeaderComponent,
-    ContactComponent
+    ContactComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
