@@ -21,13 +21,5 @@ export class SearchComponent implements OnInit {
     this.searchMenusService.nextOnSearch(inputVal);
   }
 
-  getContacts(contactName: string) {
-    const localstorageContacts: IContact[] = JSON.parse(localStorage.getItem('contacts') || '');
-    this.contacts = localstorageContacts;
-    console.log(localstorageContacts);
-    let filteredContacts = this.contacts.filter(con => con.name === contactName);
-    this.contacts = filteredContacts;
-    console.log(filteredContacts)
-  }
 }
 
