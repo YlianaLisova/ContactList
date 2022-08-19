@@ -26,7 +26,7 @@
 </div>
 
 <div class="list">
-  <div class="contact" *ngFor="let contact of localStorageContacts">
+  <div class="contact" *ngFor="let contact of localStorageContacts | search: inputValue">
     <div>
       <div>Name: {{contact.name}}</div>
       <div>Lastname: {{contact.lastName}}</div>

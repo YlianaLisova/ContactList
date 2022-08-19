@@ -1,9 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import * as uuid from 'uuid';
 
 import {RegEx} from "../../constants/regex";
 import {IContact} from "../../models/IContact";
+import {Subscription} from "rxjs";
+import {SearchService} from "../../common/search.service";
 
 
 @Component({
@@ -13,7 +15,7 @@ import {IContact} from "../../models/IContact";
 })
 
 
-export class ContactsComponent implements OnInit {
+export class ContactsComponent implements OnInit, OnDestroy {
   contacts = [
     {"id": 1, "name": "Ihor", "lastName": "Lisovyi","number": "0985784256","email": "lisovyi@gmail.com", "dateOfBirth": "18.03.1968"},
     {"id": 2, "name": "Uliana", "lastName": "Lisova","number": "0985784256","email": "lisova@gmail.com", "dateOfBirth": "16.03.2004"},
@@ -24,8 +26,10 @@ export class ContactsComponent implements OnInit {
   localStorageContacts: IContact[];
   form: FormGroup;
   contactForUpdate: IContact | null;
+  private subscriptions: Subscription = new Subscription();
+  inputValue: string;
 
-  constructor() {
+  constructor(private searchMenusService: SearchService) {
     this._createForm()
     let con = JSON.parse(localStorage.getItem('contacts') || '[{"id": 1, "name": "Ihor", "lastName": "Lisovyi","number": "0985784256","email": "lisovyi@gmail.com", "dateOfBirth": "18.03.1968"},{"id": 2, "name": "Uliana", "lastName": "Lisova","number": "0985784256","email": "lisova@gmail.com", "dateOfBirth": "16.03.2004"},{"id": 3, "name": "Lidiya", "lastName": "Lisova","number": "0985784256","email": "lisova2@gmail.com", "dateOfBirth": "05.06.1998"},{"id": 4, "name": "Ivan", "lastName": "Tkach","number": "0985784256","email": "lisova2@gmail.com", "dateOfBirth": "05.06.1998"},{"id": 5, "name": "Petro", "lastName": "Gritsiv","number": "0985784256","email": "lisova2@gmail.com", "dateOfBirth": "05.06.1998"}]')
     this.localStorageContacts = con;
@@ -33,6 +37,14 @@ export class ContactsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.searchTrigger();
+  }
+
+  searchTrigger(){
+    const $ = this.searchMenusService.onSearch(200).subscribe(val => {
+      this.inputValue = val.trim().toLowerCase()
+    });
+    this.subscriptions.add($)
   }
 
   save(value: IContact): void {
@@ -73,5 +85,9 @@ export class ContactsComponent implements OnInit {
   update(contact: IContact): void {
     this.contactForUpdate = contact;
     this.form.setValue({name: contact.name, lastName: contact.lastName, number: contact.number, email: contact.email, dateOfBirth: contact.dateOfBirth})
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

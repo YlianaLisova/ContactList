@@ -1,21 +1,9 @@
 <div class="container">
   <div class="head-content">
     <!--Getting contact name input from the user-->
-    <input [(ngModel)]="contactName" type="text" placeholder="Search..." class="form-control"/><br>
-    <button (click)="getContacts(contactName)">SEARCH</button>
+    <input [(ngModel)]="contactName" type="text" placeholder="Search..." class="form-control" #input/><br>
+    <button (click)="onSearch(input.value)">SEARCH</button>
   </div>
 </div>
-<hr>
-<div *ngFor="let contact of contacts">
-  <div class="list">
-    <div class="contact">
-      <div>
-        <div>Name: {{contact.name}}</div>
-        <div>Lastname: {{contact.lastName}}</div>
-        <div>Number: {{contact.number}}</div>
-        <div class="link"><a routerLink="{{contact.id}}">Contact Details</a></div>
-      </div>
-    </div>
-  </div>
-</div>
+
 
