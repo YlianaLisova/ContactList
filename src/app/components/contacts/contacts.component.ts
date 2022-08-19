@@ -27,6 +27,7 @@ export class ContactsComponent implements OnInit {
 
   constructor() {
     this._createForm()
+    localStorage.setItem('contacts', JSON.stringify([]))
     let con = JSON.parse(localStorage.getItem('contacts') || '[]')
     this.localStorageContacts = con;
     this.contacts = con;
