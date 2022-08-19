@@ -1,0 +1,40 @@
+<div class="container">
+  <form [formGroup]="form">
+    <div>
+      <div><label>Name: <input type="text" formControlName="name"></label></div>
+      <div *ngIf="form.controls['name'].errors && (form.controls['name'].touched)"> This field is required. Min 2. Only
+        Latin letters.
+      </div>
+      <div><label>Lastname: <input type="text" formControlName="lastName"></label></div>
+      <div *ngIf="form.controls['lastName'].errors && (form.controls['lastName'].touched)">This field is required. Min
+        2.
+        Only Latin letters.
+      </div>
+      <div><label>Number: <input type="number" formControlName="number"></label></div>
+      <div *ngIf="form.controls['number'].errors && (form.controls['number'].touched)">This field is required. Don't
+        forget 380
+      </div>
+      <div><label>Email: <input type="email" formControlName="email"></label></div>
+      <div *ngIf="form.controls['email'].errors && (form.controls['email'].touched)">This field is required. Not valid
+        email
+      </div>
+      <div><label>Date Of Birth: <input type="date" formControlName="dateOfBirth"></label></div>
+      <button [disabled]="form.invalid"
+              (click)="save(form.value)">{{!contactForUpdate ? '+ Add Contact' : 'Update'}}</button>
+    </div>
+  </form>
+</div>
+
+<div class="list">
+  <div class="contact" *ngFor="let contact of localStorageContacts">
+    <div>
+      <div>Name: {{contact.name}}</div>
+      <div>Lastname: {{contact.lastName}}</div>
+      <div>Number: {{contact.number}}</div>
+      <button (click)="delete(contact.id)">Delete</button>
+      <button (click)="update(contact)">Update</button>
+      <div class="link"><a routerLink="{{contact.id}}">Contact Details</a></div>
+    </div>
+    <hr>
+  </div>
+</div>

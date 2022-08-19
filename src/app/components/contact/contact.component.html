@@ -1,0 +1,9 @@
+<div *ngIf="contact" class="contact">
+  <div>
+    <div class="info">Name: {{contact.name}}</div>
+    <div class="info">Lastname: {{contact.lastName}}</div>
+    <div class="info">Number: {{contact.number}}</div>
+    <div class="info">Email: {{contact.email}}</div>
+    <div class="info">Date of birth: {{contact.dateOfBirth || '-'}}</div>
+  </div>
+</div>
