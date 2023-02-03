@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {IContact} from "../../models/IContact";
-import {SearchService} from "../../common/search.service";
+import {Contact} from "../../models/Contact";
+import {SearchService} from "../../services/search.service";
 
 @Component({
   selector: 'app-search',
@@ -9,16 +9,16 @@ import {SearchService} from "../../common/search.service";
 })
 export class SearchComponent implements OnInit {
 
-  contactName: string;
-  contacts: IContact[] = [];
+  public inputValue: string;
+  public contacts: Contact[] = [];
   constructor(private searchMenusService: SearchService) {
   }
 
   ngOnInit(): void {
   }
 
-  public onSearch(inputVal:string): void {
-    this.searchMenusService.nextOnSearch(inputVal);
+  public onSearch(inputValue:string): void {
+    this.searchMenusService.nextOnSearch(inputValue);
   }
 
 }

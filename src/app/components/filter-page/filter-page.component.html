@@ -1,0 +1,29 @@
+<div class="container">
+  <section class="genres">
+    <h3>Genders: </h3>
+    <form [formGroup]="form" (ngSubmit)="search()" novalidate>
+      <div>
+        <div *ngFor="let gender of gendersArray">
+          <label>
+            <input type="checkbox" formArrayName="gendersSelected" [value]="gender" (change)="checkbox($event)"
+            />
+            {{ gender }}
+          </label>
+        </div>
+      </div>
+      <button class="btn" type="submit">Search</button>
+    </form>
+  </section>
+  <div class="list">
+    <div class="contact" *ngFor="let contact of contacts">
+      <div>
+        <div>Name: {{contact.name}}</div>
+        <div>Lastname: {{contact.lastName}}</div>
+        <div>Number: {{contact.number}}</div>
+        <div>Gender: {{contact.gender}}</div>
+        <div>Email: {{contact.email}}</div>
+        <div>Date of birth: {{contact.dateOfBirth || '-'}}</div>
+      </div>
+    </div>
+  </div>
+</div>

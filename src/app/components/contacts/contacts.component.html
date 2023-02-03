@@ -1,30 +1,45 @@
 <div class="container">
   <form [formGroup]="form">
     <div>
+      <h2>Contact:</h2>
       <div><label>Name: <input type="text" formControlName="name"></label></div>
-      <div *ngIf="form.controls['name'].errors && (form.controls['name'].touched)"> This field is required. Min 2. Only
+      <div class="error" *ngIf="form.controls['name'].errors && (form.controls['name'].touched)"> This field is
+        required. Min 2. Only
         Latin letters.
       </div>
       <div><label>Lastname: <input type="text" formControlName="lastName"></label></div>
-      <div *ngIf="form.controls['lastName'].errors && (form.controls['lastName'].touched)">This field is required. Min
+      <div class="error" *ngIf="form.controls['lastName'].errors && (form.controls['lastName'].touched)">This field is
+        required. Min
         2.
         Only Latin letters.
       </div>
       <div><label>Number: <input type="number" formControlName="number"></label></div>
-      <div *ngIf="form.controls['number'].errors && (form.controls['number'].touched)">This field is required. Don't
+      <div class="error" *ngIf="form.controls['number'].errors && (form.controls['number'].touched)">This field is
+        required. Don't
         forget 380
       </div>
       <div><label>Email: <input type="email" formControlName="email"></label></div>
-      <div *ngIf="form.controls['email'].errors && (form.controls['email'].touched)">This field is required. Not valid
+      <div class="error" *ngIf="form.controls['email'].errors && (form.controls['email'].touched)">This field is
+        required. Not valid
         email
       </div>
-      <div><label>Date Of Birth: <input type="date" formControlName="dateOfBirth"></label></div>
+      <div><label>Date Of Birth: <input type="date" formControlName="dateOfBirth" max="{{maxDate}}"></label></div>
+      <div><label>Gender:
+        <mat-form-field appearance="outline">
+          <mat-label class="select-label">Choose gender...</mat-label>
+          <mat-select formControlName="gender">
+            <mat-option *ngFor="let gender of genders" [value]="gender">
+              {{ gender }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </label>
+      </div>
       <button [disabled]="form.invalid"
               (click)="save(form.value)">{{!contactForUpdate ? '+ Add Contact' : 'Update'}}</button>
     </div>
   </form>
 </div>
-
 <div class="list">
   <div class="contact" *ngFor="let contact of localStorageContacts | search: inputValue">
     <div>

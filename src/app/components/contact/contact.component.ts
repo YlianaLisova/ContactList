@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {IContact} from "../../models/IContact";
+import {Contact} from "../../models/Contact";
 
 @Component({
   selector: 'app-contact',
@@ -9,18 +9,15 @@ import {IContact} from "../../models/IContact";
 })
 export class ContactComponent implements OnInit {
 
-  localstorageContacts: IContact[];
-  contact: IContact;
+  localstorageContacts: Contact[];
+  contact: Contact;
   constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(({id}) => {
         this.localstorageContacts = JSON.parse(localStorage.getItem('contacts') || '[]');
-      console.log(this.localstorageContacts);
-      const contactFromLS = this.localstorageContacts.find(con => con.id === id);
-      console.log(this.localstorageContacts);
-      console.log(contactFromLS);
-      this.contact = contactFromLS as IContact;
+      const contactFromLS = this.localstorageContacts.find(contact => contact.id === id);
+      this.contact = contactFromLS as Contact;
     })
   }
 

@@ -3,9 +3,11 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import * as uuid from 'uuid';
 
 import {RegEx} from "../../constants/regex";
-import {IContact} from "../../models/IContact";
+import {Contact} from "../../models/Contact";
 import {Subscription} from "rxjs";
-import {SearchService} from "../../common/search.service";
+import {SearchService} from "../../services/search.service";
+import {LocalStorageService} from "../../services/local-storage.service";
+import {formatDate} from "@angular/common";
 
 
 @Component({
@@ -16,55 +18,58 @@ import {SearchService} from "../../common/search.service";
 
 
 export class ContactsComponent implements OnInit, OnDestroy {
-  contacts = [
-    {"id": "1", "name": "Ihor", "lastName": "Lisovyi","number": "0985784256","email": "lisovyi@gmail.com", "dateOfBirth": "18.03.1968"},
-    {"id": "2", "name": "Uliana", "lastName": "Lisova","number": "0985784256","email": "lisova@gmail.com", "dateOfBirth": "16.03.2004"},
-    {"id": "3", "name": "Lidiya", "lastName": "Lisova","number": "0985784256","email": "lisova2@gmail.com", "dateOfBirth": "05.06.1998"},
-    {"id": "4", "name": "Ivan", "lastName": "Tkach","number": "0985784256","email": "lisova2@gmail.com", "dateOfBirth": "05.06.1998"},
-    {"id": "5", "name": "Petro", "lastName": "Gritsiv","number": "0985784256","email": "lisova2@gmail.com", "dateOfBirth": "05.06.1998"},
-  ];
-  localStorageContacts: IContact[];
-  form: FormGroup;
-  contactForUpdate: IContact | null;
+  public genders: string[] = [ 'Female', 'Male', 'Attack Helicopter', 'Transgender female', 'Transgender male'];
+  public contacts: Contact[];
+  public localStorageContacts: Contact[];
+  public form: FormGroup;
+  public contactForUpdate: Contact | null;
   private subscriptions: Subscription = new Subscription();
-  inputValue: string;
+  public inputValue: string;
+  public maxDate: string = formatDate(new Date(), 'yyyy-MM-dd', 'en')
 
-  constructor(private searchMenusService: SearchService) {
-    this._createForm()
-    let con = JSON.parse(localStorage.getItem('contacts') || '[{"id": "1", "name": "Ihor", "lastName": "Lisovyi","number": "0985784256","email": "lisovyi@gmail.com", "dateOfBirth": "18.03.1968"},{"id": "2", "name": "Uliana", "lastName": "Lisova","number": "0985784256","email": "lisova@gmail.com", "dateOfBirth": "16.03.2004"},{"id": "3", "name": "Lidiya", "lastName": "Lisova","number": "0985784256","email": "lisova2@gmail.com", "dateOfBirth": "05.06.1998"},{"id": "4", "name": "Ivan", "lastName": "Tkach","number": "0985784256","email": "lisova2@gmail.com", "dateOfBirth": "05.06.1998"},{"id": "5", "name": "Petro", "lastName": "Gritsiv","number": "0985784256","email": "lisova2@gmail.com", "dateOfBirth": "05.06.1998"}]')
-    this.localStorageContacts = con;
-    this.contacts = con;
+
+  constructor(private searchMenusService: SearchService, private localStorageService: LocalStorageService) {
+    this._createForm();
   }
 
   ngOnInit(): void {
+    let contactsFromLocalStorage = this.localStorageService.getContacts()
+    this.contacts = contactsFromLocalStorage;
+    this.localStorageContacts = contactsFromLocalStorage;
     this.searchTrigger();
   }
 
-  searchTrigger(){
-    const $ = this.searchMenusService.onSearch(200).subscribe(val => {
-      this.inputValue = val.trim().toLowerCase()
+  private updateUsersListAndInfo (): void {
+    this.localStorageContacts = this.localStorageService.getContacts()
+  }
+
+  public searchTrigger() {
+    const $ = this.searchMenusService.onSearch(100).subscribe(value => {
+      this.inputValue = value.trim().toLowerCase()
     });
     this.subscriptions.add($)
   }
 
-  save(value: IContact): void {
+  public save(value: Contact): void {
     if (!this.contactForUpdate) {
-    const id = uuid.v4();
-    const contactReady = {id, ...this.form.value}
-    this.contacts.push(contactReady)
-    localStorage.setItem("contacts", JSON.stringify(this.contacts));
-    this.form.reset()
+      const id = uuid.v4();
+      const contactReady = {id, ...this.form.value}
+      console.log(this.form.value);
+      this.contacts.push(contactReady)
+      this.localStorageService.saveContact(this.contacts)
+      this.form.reset()
     } else {
       let index = this.localStorageContacts.findIndex(contact => contact.id === this.contactForUpdate?.id);
       this.localStorageContacts[index].number = value.number;
       this.localStorageContacts[index].name = value.name;
       this.localStorageContacts[index].lastName = value.lastName;
       this.localStorageContacts[index].email = value.email;
-      localStorage.setItem('contacts', JSON.stringify(this.localStorageContacts))
+      this.localStorageContacts[index].gender = value.gender;
+      this.localStorageService.updateContact(this.localStorageContacts);
       this.contactForUpdate = null;
       this.form.reset();
     }
-    location.reload();
+    this.updateUsersListAndInfo();
   }
 
   _createForm(): void {
@@ -74,20 +79,30 @@ export class ContactsComponent implements OnInit, OnDestroy {
       number: new FormControl(null, [Validators.pattern(RegEx.number), Validators.required]),
       email: new FormControl(null, [Validators.pattern(RegEx.email), Validators.required]),
       dateOfBirth: new FormControl(null),
+      gender: new FormControl(null)
     })
   }
 
-  delete(id: string): void {
+  public delete(id: string): void {
     const index = this.localStorageContacts.findIndex(a => a.id === id);
-    this.localStorageContacts.splice(index,1);
-    console.log(this.localStorageContacts);
-    localStorage.setItem('contacts', JSON.stringify(this.localStorageContacts))
-    location.reload()
+    this.localStorageContacts.splice(index, 1);
+    this.localStorageService.deleteContact(this.localStorageContacts);
+    this.updateUsersListAndInfo();
   }
 
-  update(contact: IContact): void {
+
+  public update(contact: Contact): void {
     this.contactForUpdate = contact;
-    this.form.setValue({name: contact.name, lastName: contact.lastName, number: contact.number, email: contact.email, dateOfBirth: contact.dateOfBirth})
+    console.log(this.contactForUpdate, 'dsfsdf')
+    this.form.setValue({
+      name: contact.name,
+      lastName: contact.lastName,
+      number: contact.number,
+      email: contact.email,
+      dateOfBirth: contact.dateOfBirth,
+      gender: contact.gender
+    })
+    this.updateUsersListAndInfo();
   }
 
   ngOnDestroy(): void {

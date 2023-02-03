@@ -1,16 +1,18 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {IContact} from "../models/IContact";
+import {Contact} from "../models/Contact";
 
 @Pipe({
   name: 'search'
 })
 export class SearchPipe implements PipeTransform {
-  transform(value: IContact[], inputValue: string = ''): IContact[] {
-    return value.filter(con => con.name.trim().toLowerCase().includes(inputValue)
+  transform(value: Contact[], inputValue: string = ''): Contact[] {
+    return value.filter(contact => contact.name.trim().toLowerCase().includes(inputValue)
       ||
-      con.lastName.trim().toLowerCase().includes(inputValue)
+      contact.lastName.trim().toLowerCase().includes(inputValue)
       ||
-      `${con.name}${con.lastName}`.trim().toLowerCase().includes(inputValue.split(' ').filter(vel => vel).join(''))
+      `${contact.name}${contact.lastName}`.trim().toLowerCase().includes(inputValue.split(' ').filter(value => value).join(''))
+      ||
+      contact.number.toString().trim().toLowerCase().includes(inputValue.split(' ').filter(value => value).join(''))
     )
   }
 

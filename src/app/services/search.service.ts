@@ -10,13 +10,13 @@ export class SearchService {
   constructor() {
   }
 
-  public nextOnSearch(inputVel: string) {
-    this.onSearch$.next(inputVel)
+  public nextOnSearch(inputValue: string) {
+    this.onSearch$.next(inputValue)
   }
 
   public onSearch(time: number): Observable<string> {
     return this.onSearch$.pipe(
-      map(inputVel => inputVel.toLocaleLowerCase()),
+      map(inputValue => inputValue.toLocaleLowerCase()),
       debounceTime(time),
       distinctUntilChanged()
     )

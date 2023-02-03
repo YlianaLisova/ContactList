@@ -1,16 +1,16 @@
 div.container
-  margin: 3% 38%
+  margin: 3% 34%
 
   form
     border: 1px solid black
-    width: 360px
-    height: 280px
+    padding: 8% 2%
+    width: 400px
     display: flex
     flex-direction: column
     justify-content: center
     align-items: center
     border-radius: 10px
-    background-color: darkcyan
+    background-color: #8bafa9
     color: snow
 
     input
@@ -18,16 +18,34 @@ div.container
       margin-left: 5px
 
     div
+      h2
+        margin-left: 37%
+
+      div.error
+        color: darkred
+
       button
         border-radius: 4px
         height: 30px
+        width: 150px
         margin-top: 10px
-        margin-left: 30%
+        margin-left: 27%
 
         &:hover
           background-color: darken(#4f7070, 6%)
           color: snow
           cursor: pointer
+    div
+      label
+        mat-form-field
+          font-size: 11px
+          color: snow
+          height: 42px
+          mat-label.select-label
+            font-size: 12px
+          mat-select
+            mat-option
+              color: snow
 
 div.contact
   border: 1px solid black
@@ -71,3 +89,4 @@ div.list
   display: flex
   justify-content: space-around
   flex-wrap: wrap
+  margin: 0 7% 0 7%
