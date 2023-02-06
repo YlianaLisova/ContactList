@@ -18,7 +18,11 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2017",
+    "esModuleInterop": true,
     "module": "es2020",
+    "types": [
+      "jest"
+    ],
     "lib": [
       "es2020",
       "dom"
@@ -29,5 +33,14 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
+  "include": [
+    "test.ts",
+    "**/*.spec.ts"
+  ],
+  "exclude": [
+    "test.ts",
+    "**/*.spec.ts",
+    "cypress.config.ts"
+  ]
 }
