@@ -28,7 +28,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
   public maxDate: string = formatDate(new Date(), 'yyyy-MM-dd', 'en')
 
 
-  constructor(private searchMenusService: SearchService, private localStorageService: LocalStorageService) {
+  constructor(private searchService: SearchService, private localStorageService: LocalStorageService) {
     this._createForm();
   }
 
@@ -39,12 +39,12 @@ export class ContactsComponent implements OnInit, OnDestroy {
     this.searchTrigger();
   }
 
-  private updateUsersListAndInfo (): void {
+  private updateUsersListAndInfo(): void {
     this.localStorageContacts = this.localStorageService.getContacts()
   }
 
   public searchTrigger() {
-    const $ = this.searchMenusService.onSearch(100).subscribe(value => {
+    const $ = this.searchService.onSearch(100).subscribe(value => {
       this.inputValue = value.trim().toLowerCase()
     });
     this.subscriptions.add($)
@@ -53,11 +53,10 @@ export class ContactsComponent implements OnInit, OnDestroy {
   public save(value: Contact): void {
     if (!this.contactForUpdate) {
       const id = uuid.v4();
-      const contactReady = {id, ...this.form.value}
-      console.log(this.form.value);
-      this.contacts.push(contactReady)
-      this.localStorageService.saveContact(this.contacts)
-      this.form.reset()
+      const contactReady = {id, ...this.form.value};
+      this.contacts.push(contactReady);
+      this.localStorageService.saveContact(this.contacts);
+      this.form.reset();
     } else {
       let index = this.localStorageContacts.findIndex(contact => contact.id === this.contactForUpdate?.id);
       this.localStorageContacts[index].number = value.number;
@@ -84,7 +83,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
   }
 
   public delete(id: string): void {
-    const index = this.localStorageContacts.findIndex(a => a.id === id);
+    const index = this.localStorageContacts.findIndex(contact => contact.id === id);
     this.localStorageContacts.splice(index, 1);
     this.localStorageService.deleteContact(this.localStorageContacts);
     this.updateUsersListAndInfo();

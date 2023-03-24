@@ -20,5 +20,4 @@ export class ContactComponent implements OnInit {
       this.contact = contactFromLS as Contact;
     })
   }
-
 }

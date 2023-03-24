@@ -7,11 +7,11 @@ import {SearchService} from "./services/search.service";
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent implements OnInit{
-  constructor(public service: SearchService) {
+  constructor(public searchService: SearchService) {
   }
 
   ngOnInit() {
-    this.service.onSearch(100)
+    this.searchService.onSearch(100)
   }
 
   title = 'Contact List';
