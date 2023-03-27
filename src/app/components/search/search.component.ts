@@ -11,14 +11,14 @@ export class SearchComponent implements OnInit {
 
   public inputValue: string;
   public contacts: Contact[] = [];
-  constructor(private searchMenusService: SearchService) {
+  constructor(private searchService: SearchService) {
   }
 
   ngOnInit(): void {
   }
 
   public onSearch(inputValue:string): void {
-    this.searchMenusService.nextOnSearch(inputValue);
+    this.searchService.nextOnSearch(inputValue);
   }
 
 }
