@@ -18,7 +18,7 @@ export class FilterPageComponent implements OnInit, OnDestroy {
   public contacts: Contact[];
   private subscriptions: Subscription = new Subscription();
 
-  constructor(private localStorageService: LocalStorageService, private searchMenusService: SearchService,public contactsComponent: ContactsComponent, private formBuilder: FormBuilder) {
+  constructor(private localStorageService: LocalStorageService, private searchMenusService: SearchService, public contactsComponent: ContactsComponent, private formBuilder: FormBuilder) {
     this.formCreator();
   }
 
@@ -30,9 +30,9 @@ export class FilterPageComponent implements OnInit, OnDestroy {
   }
 
   public search() {
-    this.storageGenders.next(this.form.value.gendersSelected.join(','))
-    this.contacts = this.localStorageContacts.filter(value => this.storageGenders.value.includes(value.gender))
-    if (this.storageGenders.value === '') this.contacts = this.localStorageContacts
+    this.storageGenders.next(this.form.value.gendersSelected.join(','));
+    this.contacts = this.localStorageContacts.filter(value => this.storageGenders.value.includes(value.gender));
+    if (this.storageGenders.value === '') this.contacts = this.localStorageContacts;
   }
 
   formCreator(): void {
@@ -43,11 +43,11 @@ export class FilterPageComponent implements OnInit, OnDestroy {
 
 
   checkbox(event: any) {
-     let gendersSelected = (this.form.controls['gendersSelected'] as FormArray)
-    if (event.target.checked){
+    let gendersSelected = (this.form.controls['gendersSelected'] as FormArray)
+    if (event.target.checked) {
       gendersSelected.push(new FormControl(event.target.value))
-    }else {
-      let i = gendersSelected.controls.findIndex(index=> index.value === event.target.value);
+    } else {
+      let i = gendersSelected.controls.findIndex(index => index.value === event.target.value);
       gendersSelected.removeAt(i)
     }
   }

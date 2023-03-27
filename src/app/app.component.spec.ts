@@ -34,6 +34,7 @@ describe('AppComponent', () => {
 
   it('should contain router-outlet', () => {
     const component = MockRender(AppComponent).point;
+
     expect(component.nativeElement.querySelector('router-outlet')).toBeDefined();
   });
 })
