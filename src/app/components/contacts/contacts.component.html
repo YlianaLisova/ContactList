@@ -36,7 +36,7 @@
       </label>
       </div>
       <button [disabled]="form.invalid"
-              (click)="save(form.value)">{{!contactForUpdate ? '+ Add Contact' : 'Update'}}</button>
+              (click)="saveOrUpdateContact(form.value)">{{!contactForUpdate ? '+ Add Contact' : 'Update'}}</button>
     </div>
   </form>
 </div>
@@ -46,8 +46,8 @@
       <div>Name: {{contact.name}}</div>
       <div>Lastname: {{contact.lastName}}</div>
       <div>Number: {{contact.number}}</div>
-      <button (click)="delete(contact.id)">Delete</button>
-      <button (click)="update(contact)">Update</button>
+      <button (click)="deleteContact(contact.id)">Delete</button>
+      <button (click)="updateContact(contact)">Update</button>
       <div class="link"><a routerLink="{{contact.id}}">Contact Details</a></div>
     </div>
   </div>

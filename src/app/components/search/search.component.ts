@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Contact} from "../../models/Contact";
 import {SearchService} from "../../services/search.service";
 import {Router} from "@angular/router";
@@ -8,21 +8,19 @@ import {Router} from "@angular/router";
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.sass']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent {
 
   public inputValue: string;
   public contacts: Contact[] = [];
-  constructor(private searchService: SearchService, private router: Router) {
-  }
 
-  ngOnInit(): void {
+  constructor(private searchService: SearchService, private router: Router) {
   }
 
   isContactsPage() {
     return this.router.url === '/contacts'
   }
 
-  public onSearch(inputValue:string): void {
+  public onSearch(inputValue: string): void {
     this.searchService.nextOnSearch(inputValue);
   }
 

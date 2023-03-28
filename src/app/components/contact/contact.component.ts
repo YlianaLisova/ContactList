@@ -9,15 +9,17 @@ import {Contact} from "../../models/Contact";
 })
 export class ContactComponent implements OnInit {
 
-  localstorageContacts: Contact[];
-  contact: Contact;
-  constructor(private activatedRoute: ActivatedRoute) { }
+  public localstorageContacts: Contact[];
+  public contact: Contact;
+
+  constructor(private activatedRoute: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(({id}) => {
-        this.localstorageContacts = JSON.parse(localStorage.getItem('contacts') || '[]');
-      const contactFromLS = this.localstorageContacts.find(contact => contact.id === id);
-      this.contact = contactFromLS as Contact;
+      this.localstorageContacts = JSON.parse(localStorage.getItem('contacts') || '[]');
+      const contactFromLocalStorage = this.localstorageContacts.find(contact => contact.id === id);
+      this.contact = contactFromLocalStorage as Contact;
     })
   }
 }

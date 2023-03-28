@@ -18,7 +18,7 @@ import {formatDate} from "@angular/common";
 
 
 export class ContactsComponent implements OnInit, OnDestroy {
-  public genders: string[] = [ 'Female', 'Male', 'Attack Helicopter', 'Transgender female', 'Transgender male'];
+  public genders: string[] = ['Female', 'Male', 'Attack Helicopter', 'Transgender female', 'Transgender male'];
   public contacts: Contact[];
   public localStorageContacts: Contact[];
   public form: FormGroup;
@@ -44,17 +44,17 @@ export class ContactsComponent implements OnInit, OnDestroy {
   }
 
   public searchTrigger() {
-    const $ = this.searchService.onSearch(100).subscribe(value => {
+    const searchSubscription = this.searchService.onSearch(100).subscribe(value => {
       this.inputValue = value.trim().toLowerCase()
     });
-    this.subscriptions.add($)
+    this.subscriptions.add(searchSubscription)
   }
 
-  public save(value: Contact): void {
+  public saveOrUpdateContact(value: Contact): void {
     if (!this.contactForUpdate) {
       const id = uuid.v4();
-      const contactReady = {id, ...this.form.value};
-      this.contacts.push(contactReady);
+      const contactReadyToSave = {id, ...this.form.value};
+      this.contacts.push(contactReadyToSave);
       this.localStorageService.saveContact(this.contacts);
       this.form.reset();
     } else {
@@ -82,7 +82,7 @@ export class ContactsComponent implements OnInit, OnDestroy {
     })
   }
 
-  public delete(id: string): void {
+  public deleteContact(id: string): void {
     const index = this.localStorageContacts.findIndex(contact => contact.id === id);
     this.localStorageContacts.splice(index, 1);
     this.localStorageService.deleteContact(this.localStorageContacts);
@@ -90,9 +90,8 @@ export class ContactsComponent implements OnInit, OnDestroy {
   }
 
 
-  public update(contact: Contact): void {
+  public updateContact(contact: Contact): void {
     this.contactForUpdate = contact;
-    console.log(this.contactForUpdate, 'dsfsdf')
     this.form.setValue({
       name: contact.name,
       lastName: contact.lastName,

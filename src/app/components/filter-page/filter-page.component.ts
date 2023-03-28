@@ -1,8 +1,7 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ContactsComponent} from "../contacts/contacts.component";
 import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {BehaviorSubject, Subscription} from "rxjs";
-import {SearchService} from "../../services/search.service";
+import {BehaviorSubject} from "rxjs";
 import {Contact} from "../../models/Contact";
 import {LocalStorageService} from "../../services/local-storage.service";
 
@@ -11,18 +10,16 @@ import {LocalStorageService} from "../../services/local-storage.service";
   templateUrl: './filter-page.component.html',
   styleUrls: ['./filter-page.component.sass']
 })
-export class FilterPageComponent implements OnInit, OnDestroy {
+export class FilterPageComponent implements OnInit {
   public form: FormGroup;
   public storageGenders = new BehaviorSubject<string>('');
   public localStorageContacts: Contact[];
   public contacts: Contact[];
-  private subscriptions: Subscription = new Subscription();
+  public gendersArray: string[] = this.contactsComponent.genders;
 
-  constructor(private localStorageService: LocalStorageService, private searchMenusService: SearchService, public contactsComponent: ContactsComponent, private formBuilder: FormBuilder) {
+  constructor(private localStorageService: LocalStorageService, public contactsComponent: ContactsComponent, private formBuilder: FormBuilder) {
     this.formCreator();
   }
-
-  public gendersArray: string[] = this.contactsComponent.genders;
 
   ngOnInit(): void {
     this.localStorageContacts = this.localStorageService.getContacts();
@@ -50,9 +47,5 @@ export class FilterPageComponent implements OnInit, OnDestroy {
       let i = gendersSelected.controls.findIndex(index => index.value === event.target.value);
       gendersSelected.removeAt(i)
     }
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
   }
 }

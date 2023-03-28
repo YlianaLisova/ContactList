@@ -17,6 +17,4 @@ export class AppComponent implements OnInit {
     }
     this.searchService.onSearch(100)
   }
-
-  title = 'Contact List';
 }

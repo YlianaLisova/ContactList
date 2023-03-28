@@ -21,7 +21,7 @@ export class LocalStorageService {
     localStorage.setItem('contacts', JSON.stringify(contact));
   }
 
-  public deleteContact (contact: Contact[]): void {
+  public deleteContact(contact: Contact[]): void {
     localStorage.setItem('contacts', JSON.stringify(contact));
   }
 }
