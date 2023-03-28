@@ -35,26 +35,6 @@ describe('ContactComponent', () => {
     expect(component.contact).toEqual(contactsArray[0]);
   });
 
-  // it('should not get the contact from local storage if the contact does not exist', () => {
-  //   const fixture = MockRender(ContactComponent);
-  //   const component = fixture.point.componentInstance;
-  //   const contact =   {
-  //       id: '5',
-  //       name: "Tom",
-  //       lastName: "Gerry",
-  //       number: "380985784256",
-  //       email: "lisovyi@gmail.com",
-  //       dateOfBirth: "1968-03-18",
-  //       gender: "Male"
-  //     };
-  //
-  //   localStorage.setItem('contacts', JSON.stringify(contactsArray));
-  //   component.ngOnInit();
-  //
-  //   expect(component.localstorageContacts).toEqual(contactsArray);
-  //   expect(component.contact).not.toEqual(contact);
-  // });
-
   it('should not get the contact from local storage if there are no contacts', () => {
     const fixture = MockRender(ContactComponent);
     const component = fixture.point.componentInstance;
