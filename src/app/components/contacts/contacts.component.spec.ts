@@ -99,7 +99,7 @@ describe('ContactsComponent', () => {
     jest.spyOn(localStorageService, 'updateContact');
 
     component.contactForUpdate = contactForUpdate;
-    component.save(contactForUpdate);
+    component.saveOrUpdateContact(contactForUpdate);
 
     expect(component.localStorageContacts.length).toBe(2);
     expect(component.localStorageContacts[0]).toEqual({...oneContactInArray, ...contactForUpdate});
@@ -113,7 +113,7 @@ describe('ContactsComponent', () => {
     const localeStorageService = ngMocks.get(LocalStorageService);
     jest.spyOn(localeStorageService, 'deleteContact');
 
-    component.delete('1');
+    component.deleteContact('1');
 
     expect(localeStorageService.deleteContact).toHaveBeenCalledWith([contactsArray[0]]);
     expect(component.localStorageContacts).toEqual([contactsArray[0]]);
@@ -147,7 +147,7 @@ describe('ContactsComponent', () => {
 
     component.contacts = contactsArrayForAdd;
     component.form.setValue(formValue);
-    component.save({id, ...formValue});
+    component.saveOrUpdateContact({id, ...formValue});
 
     expect(component.contacts.length).toBe(3);
     expect(component.contacts[2]).toEqual({id, ...formValue});
@@ -224,7 +224,7 @@ describe('ContactsComponent', () => {
   it('should delete contact', () => {
     const fixture = MockRender(ContactsComponent);
     const component = fixture.point.componentInstance;
-    jest.spyOn(component, 'delete');
+    jest.spyOn(component, 'deleteContact');
 
   });
 });
