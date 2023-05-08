@@ -1,0 +1,122 @@
+<div>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <span>Register</span>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form id="formGroup" [formGroup]="formGroup" (ngSubmit)="formGroup.valid && register()">
+        <div>
+          <mat-form-field class="enigma-form-field">
+            <mat-label>
+              Name
+            </mat-label>
+            <input matInput type="text" formControlName="name" required placeholder="User"/>
+            <mat-error>
+              <mat-icon>error_outline</mat-icon>
+              <ng-container *ngIf="formGroup.controls['name'].errors as errors">
+                <ng-container [ngTemplateOutlet]="errors['required'] ? required : null"></ng-container>
+                <ng-template #required>
+                  <span>Name is required</span>
+                </ng-template>
+              </ng-container>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="enigma-form-field">
+            <mat-label>
+              Lastname
+            </mat-label>
+            <input matInput type="text" formControlName="lastName" required placeholder="User"/>
+            <mat-error>
+              <mat-icon>error_outline</mat-icon>
+              <ng-container *ngIf="formGroup.controls['lastName'].errors as errors">
+                <ng-container [ngTemplateOutlet]="errors['required'] ? required : null"></ng-container>
+                <ng-template #required>
+                  <span>Lastname is required</span>
+                </ng-template>
+              </ng-container>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="enigma-form-field">
+            <mat-label>
+              Email
+            </mat-label>
+            <input matInput type="text" formControlName="email" required placeholder="User"/>
+            <mat-error>
+              <mat-icon>error_outline</mat-icon>
+              <ng-container *ngIf="formGroup.controls['email'].errors as errors">
+                <ng-container
+                  [ngTemplateOutlet]="errors['required'] ? required : errors['email'] ? email : null"></ng-container>
+                <ng-template #required>
+                  <span>Email is required</span>
+                </ng-template>
+                <ng-template #email>
+                  <span>Email is invalid</span>
+                </ng-template>
+              </ng-container>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="enigma-form-field">
+            <mat-label>
+              Password
+            </mat-label>
+            <input matInput type="password" [type]="passwordHidden ? 'password' : 'text'" formControlName="password"
+                   required/>
+            <button type="button" matSuffix (click)="passwordHidden = !passwordHidden">
+              <mat-icon>{{ passwordHidden ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <mat-error>
+              <mat-icon>error_outline</mat-icon>
+              <ng-container *ngIf="formGroup.controls['password'].errors as errors">
+                <!--                <ng-container [ngTemplateOutlet]="errors['required'] ? required : errors?.['minLength'] ? minLength : null"></ng-container>-->
+                <ng-container [ngTemplateOutlet]="errors['required'] ? required : null"></ng-container>
+                <ng-template #required>
+                  <span>Password is required</span>
+                </ng-template>
+                <!--                <ng-template #minLength>-->
+                <!--                  <span>Password is required</span>-->
+                <!--                </ng-template>-->
+              </ng-container>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="enigma-form-field">
+            <mat-label>
+              Confirm password
+            </mat-label>
+            <input [type]="passwordHidden ? 'password' : 'text'" matInput type="text" formControlName="confirmPassword" required/>
+            <button type="button" matSuffix (click)="passwordHidden = !passwordHidden">
+              <mat-icon>{{ passwordHidden ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <mat-error>
+              <mat-icon>error_outline</mat-icon>
+              <ng-container *ngIf="formGroup.controls['confirmPassword'].errors as errors">
+                <ng-container [ngTemplateOutlet]="errors['required'] ? required : null"></ng-container>
+                <ng-template #required>
+                  <span>Confirm password is required</span>
+                </ng-template>
+              </ng-container>
+            </mat-error>
+          </mat-form-field>
+          <div *ngIf="formGroup.errors">{{formGroup.errors['notSame']}}</div>
+        </div>
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <div>
+        <button type="submit" form="formGroup" (click)="register()" [disabled]="formGroup.invalid">
+          Register
+        </button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>
