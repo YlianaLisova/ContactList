@@ -21,8 +21,8 @@ export class RegisterComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       name: [null, [Validators.required]],
       lastName: [null, [Validators.required]],
-      email: [null, [Validators.required, Validators.email]],
-      password: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
+      email: [null, [Validators.required, Validators.email, Validators.pattern("^[a-zA-Z\\d.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z\\d-]+(?:\\.[a-zA-Z\\d-]+)*$")]],
+      password: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(20), Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?\\d)(?=.*?[#?!@$%^&*-]).{8,}$")]],
       confirmPassword: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]]
     }, {validators: this._checkPasswords})
   }
@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit {
   _checkPasswords(form: AbstractControl): ValidationErrors | null {
     const password = form.get('password');
     const confirmPassword = form.get('confirmPassword');
-    return password?.value === confirmPassword?.value ? null : {notSame: 'Passwords are different'}
+    return password?.value === confirmPassword?.value ? null : {notSame: 'Password and confirm password are different'}
   }
 
 }

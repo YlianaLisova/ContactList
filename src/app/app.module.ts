@@ -22,14 +22,15 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
+import {AuthGuard} from "./guards/auth-guard";
 
 const routes: Routes = [
+  {path: '', pathMatch: 'full', redirectTo: 'login'},
   {
     path: '', component: MainLayoutComponent, children: [
-      {path: '', redirectTo: 'contacts', pathMatch: 'full'},
-      {path: 'contacts', component: ContactsComponent},
-      {path: 'contacts/:id', component: ContactComponent},
-      {path: 'filter', component: FilterPageComponent},
+      {path: 'contacts', component: ContactsComponent, canActivate: [AuthGuard]},
+      {path: 'contacts/:id', component: ContactComponent, canActivate: [AuthGuard]},
+      {path: 'filter', component: FilterPageComponent, canActivate: [AuthGuard]},
     ]
   },
   {path: 'register', component: RegisterComponent},

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {User} from "../models/User";
-import {Observable, tap} from "rxjs";
+import {Observable, of, tap} from "rxjs";
 import {urls} from "../constants/urls";
 import {Token} from "../models/Token";
 
@@ -22,7 +22,7 @@ export class AuthService {
   }
 
   login(user: User) {
-    return this.http.post<Token>(urls.auth, user)
+    return this.http.post<Token>(`${urls.auth}/login`, user)
   }
 
   refresh(): Observable<Token> {
@@ -35,8 +35,8 @@ export class AuthService {
   }
 
   setToken(token: Token): void {
-    localStorage.setItem(this.accessTokenKey, token.access)
-    localStorage.setItem(this.refreshTokenKey, token.refresh)
+    localStorage.setItem(this.accessTokenKey, token.access_token)
+    localStorage.setItem(this.refreshTokenKey, token.refresh_token)
   }
 
   getAccessToken(): string {
@@ -51,8 +51,8 @@ export class AuthService {
     localStorage.removeItem(this.refreshTokenKey)
   }
 
-  isAuthorization(): boolean {
-    return !!localStorage.getItem(this.accessTokenKey)
+  isAuthorization(): Observable<boolean> {
+    return of(!!localStorage.getItem(this.accessTokenKey))
   }
 
 
