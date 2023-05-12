@@ -51,9 +51,14 @@
               <mat-icon>error_outline</mat-icon>
               <ng-container *ngIf="formGroup.controls['email'].errors as errors">
                 <ng-container
-                  [ngTemplateOutlet]="errors['required'] ? required : null"></ng-container>
+                  [ngTemplateOutlet]="errors['required'] ? required : errors?.['pattern'] ?
+                  pattern : null">
+                </ng-container>
                 <ng-template #required>
-                  <span>Email is required</span>
+                  <span>The email is required</span>
+                </ng-template>
+                <ng-template #pattern>
+                  <span>The email is not valid</span>
                 </ng-template>
               </ng-container>
             </mat-error>
@@ -72,9 +77,13 @@
             <mat-error>
               <mat-icon>error_outline</mat-icon>
               <ng-container *ngIf="formGroup.controls['password'].errors as errors">
-                <ng-container [ngTemplateOutlet]="errors['required'] ? required : null"></ng-container>
+                <ng-container
+                  [ngTemplateOutlet]="errors['required'] ? required : errors?.['pattern'] ? pattern : null"></ng-container>
                 <ng-template #required>
                   <span>Password is required</span>
+                </ng-template>
+                <ng-template #pattern>
+                  <span>A minimum 8 characters:  uppercase letter, lowercase letter, number and  special symbol.</span>
                 </ng-template>
               </ng-container>
             </mat-error>
@@ -93,9 +102,12 @@
             <mat-error>
               <mat-icon>error_outline</mat-icon>
               <ng-container *ngIf="formGroup.controls['confirmPassword'].errors as errors">
-                <ng-container [ngTemplateOutlet]="errors['required'] ? required : null"></ng-container>
+                <ng-container [ngTemplateOutlet]="errors['required'] ? required : formGroup.errors?.['notSame'] ? customError : null"></ng-container>
                 <ng-template #required>
                   <span>Confirm password is required</span>
+                </ng-template>
+                <ng-template #customError>
+                  <span>{{formGroup.errors?.['notSame']}}</span>
                 </ng-template>
               </ng-container>
             </mat-error>
@@ -103,15 +115,6 @@
         </div>
       </form>
     </mat-card-content>
-    <div class="errors-wrapper" *ngIf="formGroup.errors">Error:
-      <br>
-      <span class="passwordError"
-            *ngIf="formGroup.controls['confirmPassword'].touched && formGroup.errors"><strong>{{formGroup.errors['notSame']}}</strong></span>
-      <span class="passwordError"
-            *ngIf="formGroup.controls['email'].touched && formGroup.controls['email'].errors?.['pattern']"><strong>Email: </strong> The email is not valid.</span>
-      <span class="passwordError"
-            *ngIf="formGroup.controls['password'].invalid && formGroup.controls['password'].errors?.['pattern']"><strong>Password: </strong>Password should contain a minimum 8 characters:  uppercase letter, lowercase letter, number and  special symbol.</span>
-    </div>
     <mat-card-actions>
       <div>
         <button class="submit-button" type="submit" form="formGroup" (click)="register()"
@@ -120,5 +123,6 @@
         </button>
       </div>
     </mat-card-actions>
+    <span class="login-link" [routerLink]="'/login'">Login</span>
   </mat-card>
 </div>

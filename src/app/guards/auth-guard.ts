@@ -12,7 +12,6 @@ export class AuthGuard implements CanActivate {
 
   public canActivate(): Observable<boolean> {
     return this.authService.isAuthorization().pipe(tap((value) => {
-      console.log(value)
       !value && this.router.navigate(['/login'])
     }));
   }

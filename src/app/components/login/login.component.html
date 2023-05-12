@@ -16,9 +16,13 @@
             <mat-error>
               <mat-icon>error_outline</mat-icon>
               <ng-container *ngIf="formGroup.controls['email'].errors as errors">
-                <ng-container [ngTemplateOutlet]="errors['required'] ? required : null"></ng-container>
+                <ng-container
+                  [ngTemplateOutlet]="errors['required'] ? required : errors['pattern'] ? pattern: null"></ng-container>
                 <ng-template #required>
-                  <span>Email is required</span>
+                  <span>Email is required.</span>
+                </ng-template>
+                <ng-template #pattern>
+                  <span> The email is not valid.</span>
                 </ng-template>
               </ng-container>
             </mat-error>
@@ -37,17 +41,17 @@
             <mat-error>
               <mat-icon>error_outline</mat-icon>
               <ng-container *ngIf="formGroup.controls['password'].errors as errors">
-                <ng-container [ngTemplateOutlet]="errors['required'] ? required : null"></ng-container>
+                <ng-container
+                  [ngTemplateOutlet]="errors['required'] ? required : errors['pattern'] ? pattern : null"></ng-container>
                 <ng-template #required>
                   <span>Password is required</span>
+                </ng-template>
+                <ng-template #pattern>
+                  <span>A minimum 8 characters:  uppercase letter, lowercase letter, number and  special symbol.</span>
                 </ng-template>
               </ng-container>
             </mat-error>
           </mat-form-field>
-          <div><span class="error-message" *ngIf="formGroup.controls['email'].errors?.['pattern']"><strong>Email: </strong> The email is not valid.</span>
-          </div>
-          <div><span class="error-message" *ngIf="formGroup.controls['password'].errors?.['pattern']"><strong>Password: </strong>Password should contain a minimum 8 characters:  uppercase letter, lowercase letter, number and  special symbol.</span>
-          </div>
         </div>
       </form>
     </mat-card-content>
@@ -58,5 +62,6 @@
         </button>
       </div>
     </mat-card-actions>
+    <span class="register-link" [routerLink]="'/register'">Register</span>
   </mat-card>
 </div>
