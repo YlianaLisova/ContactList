@@ -1,10 +1,8 @@
-<div *ngIf="isContactsPage()" class="container">
-  <div class="head-content">
-    <!--Getting contact name input from the user-->
-    <mat-label></mat-label>
-    <input [(ngModel)]="inputValue" type="text" placeholder="Search..." class="form-control"
-           (ngModelChange)="onSearch(inputValue)"/><br>
-  </div>
+<div  *ngIf="isContactsPage()">
+    <mat-form-field appearance="fill">
+      <mat-label>Search</mat-label>
+      <input matInput [(ngModel)]="inputValue" (ngModelChange)="onSearch(inputValue)" type="text" placeholder="Search...">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
 </div>
-
 
