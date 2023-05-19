@@ -7,7 +7,6 @@
     </mat-card-header>
     <mat-card-content>
       <form id="formGroup" [formGroup]="formGroup" (ngSubmit)="formGroup.valid && register()">
-        <div>
           <mat-form-field class="form-field">
             <mat-label>
               Name
@@ -23,25 +22,21 @@
               </ng-container>
             </mat-error>
           </mat-form-field>
-        </div>
-        <div>
-          <mat-form-field class="form-field">
-            <mat-label>
-              Lastname
-            </mat-label>
-            <input matInput type="text" formControlName="lastName" required placeholder="User"/>
-            <mat-error>
-              <mat-icon>error_outline</mat-icon>
-              <ng-container *ngIf="formGroup.controls['lastName'].errors as errors">
-                <ng-container [ngTemplateOutlet]="errors['required'] ? required : null"></ng-container>
-                <ng-template #required>
-                  <span>Lastname is required</span>
-                </ng-template>
-              </ng-container>
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div>
+        <mat-form-field class="form-field">
+          <mat-label>
+            Lastname
+          </mat-label>
+          <input matInput type="text" formControlName="lastName" required placeholder="User"/>
+          <mat-error>
+            <mat-icon>error_outline</mat-icon>
+            <ng-container *ngIf="formGroup.controls['lastName'].errors as errors">
+              <ng-container [ngTemplateOutlet]="errors['required'] ? required : null"></ng-container>
+              <ng-template #required>
+                <span>Lastname is required</span>
+              </ng-template>
+            </ng-container>
+          </mat-error>
+        </mat-form-field>
           <mat-form-field class="form-field">
             <mat-label>
               Email
@@ -63,8 +58,6 @@
               </ng-container>
             </mat-error>
           </mat-form-field>
-        </div>
-        <div>
           <mat-form-field class="form-field">
             <mat-label>
               Password
@@ -88,8 +81,6 @@
               </ng-container>
             </mat-error>
           </mat-form-field>
-        </div>
-        <div>
           <mat-form-field class="form-field">
             <mat-label>
               Confirm password
@@ -102,7 +93,8 @@
             <mat-error>
               <mat-icon>error_outline</mat-icon>
               <ng-container *ngIf="formGroup.controls['confirmPassword'].errors as errors">
-                <ng-container [ngTemplateOutlet]="errors['required'] ? required : formGroup.errors?.['notSame'] ? customError : null"></ng-container>
+                <ng-container
+                  [ngTemplateOutlet]="errors['required'] ? required : formGroup.errors?.['notSame'] ? customError : null"></ng-container>
                 <ng-template #required>
                   <span>Confirm password is required</span>
                 </ng-template>
@@ -112,17 +104,12 @@
               </ng-container>
             </mat-error>
           </mat-form-field>
-        </div>
       </form>
     </mat-card-content>
-    <mat-card-actions>
-      <div>
-        <button class="submit-button" type="submit" form="formGroup" (click)="register()"
-                [disabled]="formGroup.invalid">
+              <button class="submit-button" type="submit" form="formGroup" (click)="register()"
+                      [disabled]="formGroup.invalid">
           Register
         </button>
-      </div>
-    </mat-card-actions>
     <span class="login-link" [routerLink]="'/login'">Login</span>
   </mat-card>
 </div>
