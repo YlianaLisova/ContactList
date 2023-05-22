@@ -23,6 +23,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {AuthGuard} from "./guards/auth-guard";
+import {MatTableModule} from "@angular/material/table";
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'login'},
@@ -50,21 +51,22 @@ const routes: Routes = [
     LoginComponent,
     RegisterComponent,
   ],
-  imports: [
-    BrowserModule,
-    ReactiveFormsModule,
-    FormsModule,
-    BrowserAnimationsModule,
-    MatSelectModule,
-    HttpClientModule,
-    CommonModule,
-    RouterModule.forRoot(routes),
-    MatCardModule,
-    MatDatepickerModule,
-    MatInputModule,
-    MatIconModule,
-    MatButtonModule
-  ],
+    imports: [
+        BrowserModule,
+        ReactiveFormsModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        MatSelectModule,
+        HttpClientModule,
+        CommonModule,
+        RouterModule.forRoot(routes),
+        MatCardModule,
+        MatDatepickerModule,
+        MatInputModule,
+        MatIconModule,
+        MatButtonModule,
+        MatTableModule
+    ],
   exports: [
     RouterModule
   ],

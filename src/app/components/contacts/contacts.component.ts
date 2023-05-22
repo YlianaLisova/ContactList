@@ -25,7 +25,8 @@ export class ContactsComponent implements OnInit, OnDestroy {
   public contactForUpdate: Contact | null;
   private subscriptions: Subscription = new Subscription();
   public inputValue: string;
-  public maxDate: string = formatDate(new Date(), 'yyyy-MM-dd', 'en')
+  public maxDate: string = formatDate(new Date(), 'yyyy-MM-dd', 'en');
+  public readonly displayedColumns = ['name', 'lastName', 'number', 'detailInfo', 'deleteButton', 'updateButton']
 
 
   constructor(private searchService: SearchService, private localStorageService: LocalStorageService) {
