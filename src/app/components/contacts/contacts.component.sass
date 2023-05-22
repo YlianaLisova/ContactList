@@ -35,14 +35,18 @@ div.container
           background-color: darken(#4f7070, 6%)
           color: snow
           cursor: pointer
+
     div
       label
         mat-form-field
           font-size: 11px
           color: snow
           height: 42px
+          width: 60%
+
           mat-label.select-label
             font-size: 12px
+
           mat-select
             mat-option
               color: snow
@@ -92,11 +96,12 @@ div.list
   margin: 0 7% 0 7%
 
 
-
-
-
 table
   width: 100%
+
+table.mat-table
+  border-spacing: 5px
+
 
 .update-button, .delete-button
   height: 47px
@@ -104,18 +109,23 @@ table
   border-radius: 7px
   background-color: #9a9a9a
   color: snow
-  margin-left: 3px
 
+.update-button
+  left: 20px
 
 .update-button:hover, .delete-button:hover
   background-color: #6c6c6c
   cursor: pointer
 
 .text-align-center
-  text-align: center !important
+  text-align: center
 
 .link
-    text-decoration: none
+  text-decoration: none
+  text-align: center
+  box-sizing: border-box
+  padding-left: 20px
 
 .link:hover
   cursor: pointer
+

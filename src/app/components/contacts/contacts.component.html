@@ -40,19 +40,7 @@
     </div>
   </form>
 </div>
-<!--<div class="list">-->
-<!--  <div class="contact" *ngFor="let contact of localStorageContacts | search: inputValue">-->
-<!--    <div>-->
-<!--      <div>Name: {{contact.name}}</div>-->
-<!--      <div>Lastname: {{contact.lastName}}</div>-->
-<!--      <div>Number: {{contact.number}}</div>-->
-<!--      <button (click)="deleteContact(contact.id)">Delete</button>-->
-<!--      <button (click)="updateContact(contact)">Update</button>-->
-<!--      <div class="link"><a routerLink="{{contact.id}}">Contact Details</a></div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-<table mat-table [dataSource]="localStorageContacts  | search: inputValue">
+<table class="mat-elevation-z8; demo-table" mat-table [dataSource]="localStorageContacts  | search: inputValue">
   <ng-container matColumnDef="name">
     <th class="text-align-center"  mat-header-cell *matHeaderCellDef>Name</th>
     <td class="text-align-center"  mat-cell *matCellDef="let contact">{{contact.name}}</td>
@@ -69,22 +57,22 @@
   </ng-container>
 
   <ng-container matColumnDef="detailInfo">
-    <th class="text-align-center"  mat-header-cell *matHeaderCellDef>Detail Info</th>
+    <th class="text-align-center" mat-header-cell *matHeaderCellDef>Detail Info</th>
     <td class="text-align-center; link" *matCellDef="let contact"  mat-cell routerLink="{{contact.id}}">Contact Details
     </td>
   </ng-container>
 
   <ng-container matColumnDef="deleteButton">
-    <th class="text-align-center"  mat-header-cell *matHeaderCellDef>Delete</th>
-    <td class="text-align-center"  mat-cell>
-      <button class="delete-button" *matCellDef="let contact" (click)="deleteContact(contact.id)">Delete</button>
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td  mat-cell>
+       <button mat-button type="button" class=" delete-button" *matCellDef="let contact" (click)="deleteContact(contact.id)">Delete</button>
     </td>
   </ng-container>
 
   <ng-container matColumnDef="updateButton">
-    <th class="text-align-center"  mat-header-cell *matHeaderCellDef>Update</th>
-    <td class="text-align-center" mat-cell>
-      <button class="text-align-center; update-button" mat-cell *matCellDef="let contact" (click)="updateContact(contact)">Update</button>
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell>
+      <button mat-button type="button" class=" update-button" *matCellDef="let contact" (click)="updateContact(contact)">Update</button>
     </td>
   </ng-container>
 
