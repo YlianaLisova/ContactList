@@ -78,8 +78,8 @@ export class ContactsComponent implements OnInit, OnDestroy {
       lastName: new FormControl(null, [Validators.pattern(RegEx.lastName), Validators.required]),
       number: new FormControl(null, [Validators.pattern(RegEx.number), Validators.required]),
       email: new FormControl(null, [Validators.pattern(RegEx.email), Validators.required]),
-      dateOfBirth: new FormControl(null),
-      gender: new FormControl(null)
+      dateOfBirth: new FormControl(null, [Validators.required]),
+      gender: new FormControl(null, [Validators.required])
     })
   }
 
