@@ -1,48 +1,5 @@
 <div class="wrapper">
-  <table class="mat-elevation-z8; demo-table" mat-table [dataSource]="localStorageContacts  | search: inputValue">
-    <ng-container matColumnDef="name">
-      <th class="text-align-center" mat-header-cell *matHeaderCellDef>Name</th>
-      <td class="text-align-center" mat-cell *matCellDef="let contact">{{contact.name}}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="lastName">
-      <th class="text-align-center" mat-header-cell *matHeaderCellDef>Lastname</th>
-      <td class="text-align-center" mat-cell *matCellDef="let contact">{{contact.lastName}}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="number">
-      <th class="text-align-center" mat-header-cell *matHeaderCellDef>Number</th>
-      <td class="text-align-center" mat-cell *matCellDef="let contact">{{contact.number}}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="detailInfo">
-      <th class="text-align-center" mat-header-cell *matHeaderCellDef>Detail Info</th>
-      <td class="text-align-center; link" *matCellDef="let contact" mat-cell routerLink="{{contact.id}}">Contact Details
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="deleteButton">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell>
-        <button mat-button type="button" class=" delete-button" *matCellDef="let contact"
-                (click)="deleteContact(contact.id)">Delete
-        </button>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="updateButton">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell>
-        <button mat-button type="button" class=" update-button" *matCellDef="let contact"
-                (click)="updateContact(contact)">Update
-        </button>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-  <mat-card class="card">
+  <mat-card class="card-for-phone">
     <mat-card-header>
       <mat-card-title>
         <span>Contact:</span>
@@ -150,93 +107,163 @@
     </mat-card-content>
     <mat-card-actions>
       <div>
-        <button type="submit" [disabled]="form.invalid" (click)="saveOrUpdateContact(form.value)">{{!contactForUpdate ? '+ Add Contact' : 'Update'}}</button>
+        <button class="submit-button" mat-button type="button" [disabled]="form.invalid" [ngClass]="{'active': form.valid}" (click)="saveOrUpdateContact(form.value)">{{!contactForUpdate ? '+ Add Contact' : 'Update'}}</button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+  <table class="mat-elevation-z8; demo-table" mat-table [dataSource]="localStorageContacts  | search: inputValue">
+    <ng-container matColumnDef="name">
+      <th class="text-align-center" mat-header-cell *matHeaderCellDef>Name</th>
+      <td class="text-align-center" mat-cell *matCellDef="let contact">{{contact.name}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastName">
+      <th class="text-align-center" mat-header-cell *matHeaderCellDef>Lastname</th>
+      <td class="text-align-center" mat-cell *matCellDef="let contact">{{contact.lastName}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="number">
+      <th class="text-align-center" mat-header-cell *matHeaderCellDef>Number</th>
+      <td class="text-align-center" mat-cell *matCellDef="let contact">{{contact.number}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="detailInfo">
+      <th class="text-align-center" mat-header-cell *matHeaderCellDef>Detail Info</th>
+      <td class="text-align-center; link" *matCellDef="let contact" mat-cell routerLink="{{contact.id}}">Contact Details
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="deleteButton">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell>
+        <button mat-button type="button" class=" delete-button" *matCellDef="let contact"
+                (click)="deleteContact(contact.id)">Delete
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="updateButton">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell>
+        <button mat-button type="button" class="update-button" *matCellDef="let contact"
+                (click)="updateContact(contact)">Update
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+  <mat-card class="card-for-laptop">
+    <mat-card-header>
+      <mat-card-title>
+        <span>Contact:</span>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="form">
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput type="text" formControlName="name" required placeholder="User"/>
+          <mat-error>
+            <mat-icon>error_outline</mat-icon>
+            <ng-container *ngIf="form.controls['name'].errors as errors">
+              <ng-container
+                [ngTemplateOutlet]="errors['required'] ? required : errors['pattern'] ? pattern : null"></ng-container>
+              <ng-template #required>
+                <span>Name is required</span>
+              </ng-template>
+              <ng-template #pattern>
+                The name is not valid
+              </ng-template>
+            </ng-container>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Lastname</mat-label>
+          <input matInput type="text" formControlName="lastName" required placeholder="User"/>
+          <mat-error>
+            <mat-icon>error_outline</mat-icon>
+            <ng-container *ngIf="form.controls['lastName'].errors as errors">
+              <ng-container
+                [ngTemplateOutlet]="errors['required'] ? required : errors['pattern'] ? pattern : null"></ng-container>
+              <ng-template #required>
+                <span>Lastname is required</span>
+              </ng-template>
+              <ng-template #pattern>Lastname is not valid</ng-template>
+            </ng-container>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Number</mat-label>
+          <input matInput type="number" formControlName="number" required placeholder="380997788789"/>
+          <mat-error>
+            <mat-icon>error_outline</mat-icon>
+            <ng-container *ngIf="form.controls['number'].errors as errors">
+              <ng-container
+                [ngTemplateOutlet]="errors['required'] ? required : errors['pattern'] ? pattern : null"></ng-container>
+              <ng-template #required>
+                <span>Number is required</span>
+              </ng-template>
+              <ng-template #pattern> Number is not valid</ng-template>
+            </ng-container>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput type="text" formControlName="email" required placeholder="email@gmail.com"/>
+          <mat-error>
+            <mat-icon>error_outline</mat-icon>
+            <ng-container *ngIf="form.controls['email'].errors as errors">
+              <ng-container
+                [ngTemplateOutlet]="errors['required'] ? required : errors['pattern'] ? pattern : null"></ng-container>
+              <ng-template #required>
+                <span>Email is required</span>
+              </ng-template>
+              <ng-template #pattern> Email is not valid</ng-template>
+            </ng-container>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Date of birth</mat-label>
+          <input matInput type="date" max="{{maxDate}}" formControlName="dateOfBirth" required placeholder="User"/>
+          <mat-error>
+            <mat-icon>error_outline</mat-icon>
+            <ng-container *ngIf="form.controls['dateOfBirth'].errors as errors">
+              <ng-container
+                [ngTemplateOutlet]="errors['required'] ? required : errors['pattern'] ? pattern : null"></ng-container>
+              <ng-template #required>
+                <span>Date of birth is required</span>
+              </ng-template>
+              <ng-template #pattern> Date of birth is not valid</ng-template>
+            </ng-container>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Choose gender...</mat-label>
+          <mat-select formControlName="gender">
+            <mat-option *ngFor="let gender of genders" [value]="gender">
+              {{ gender }}
+            </mat-option>
+          </mat-select>
+          <mat-error>
+            <mat-icon>error_outline</mat-icon>
+            <ng-container *ngIf="form.controls['gender'].errors as errors">
+              <ng-container
+                [ngTemplateOutlet]="errors['required'] ? required : errors['pattern'] ? pattern : null"></ng-container>
+              <ng-template #required>
+                <span>Gender is required</span>
+              </ng-template>
+              <ng-template #pattern>Gender is not valid</ng-template>
+            </ng-container>
+          </mat-error>
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <div>
+        <button class="submit-button" mat-button type="button" [disabled]="form.invalid" [ngClass]="{'active': form.valid}" (click)="saveOrUpdateContact(form.value)">{{!contactForUpdate ? '+ Add Contact' : 'Update'}}</button>
       </div>
     </mat-card-actions>
   </mat-card>
 </div>
-<div class="container">
-  <!--  <form [formGroup]="form">-->
-  <!--    <div>-->
-  <!--      <h2>Contact:</h2>-->
-  <!--      <div><label>Name: <input type="text" formControlName="name"></label></div>-->
-  <!--      <div class="error" *ngIf="form.controls['name'].errors && (form.controls['name'].touched)"> This field is-->
-  <!--        required. Min 2. Only-->
-  <!--        Latin letters.-->
-  <!--      </div>-->
-  <!--      <div><label>Lastname: <input type="text" formControlName="lastName"></label></div>-->
-  <!--      <div class="error" *ngIf="form.controls['lastName'].errors && (form.controls['lastName'].touched)">This field is-->
-  <!--        required. Min-->
-  <!--        2.-->
-  <!--        Only Latin letters.-->
-  <!--      </div>-->
-  <!--      <div><label>Number: <input type="number" formControlName="number"></label></div>-->
-  <!--      <div class="error" *ngIf="form.controls['number'].errors && (form.controls['number'].touched)">This field is-->
-  <!--        required. Don't-->
-  <!--        forget 380-->
-  <!--      </div>-->
-  <!--      <div><label>Email: <input type="email" formControlName="email"></label></div>-->
-  <!--      <div class="error" *ngIf="form.controls['email'].errors && (form.controls['email'].touched)">This field is-->
-  <!--        required. Not valid-->
-  <!--        email-->
-  <!--      </div>-->
-  <!--      <div><label>Date Of Birth: <input type="date" formControlName="dateOfBirth" max="{{maxDate}}"></label></div>-->
-  <!--      <div><label>Gender:-->
-  <!--        <mat-form-field appearance="outline">-->
-  <!--          <mat-label class="select-label">Choose gender...</mat-label>-->
-  <!--          <mat-select formControlName="gender">-->
-  <!--            <mat-option *ngFor="let gender of genders" [value]="gender">-->
-  <!--              {{ gender }}-->
-  <!--            </mat-option>-->
-  <!--          </mat-select>-->
-  <!--        </mat-form-field>-->
-  <!--      </label>-->
-  <!--      </div>-->
-  <!--      <button [disabled]="form.invalid"-->
-  <!--              (click)="saveOrUpdateContact(form.value)">{{!contactForUpdate ? '+ Add Contact' : 'Update'}}</button>-->
-  <!--    </div>-->
-  <!--  </form>-->
-</div>
-<!--<table class="mat-elevation-z8; demo-table" mat-table [dataSource]="localStorageContacts  | search: inputValue">-->
-<!--  <ng-container matColumnDef="name">-->
-<!--    <th class="text-align-center" mat-header-cell *matHeaderCellDef>Name</th>-->
-<!--    <td class="text-align-center" mat-cell *matCellDef="let contact">{{contact.name}}</td>-->
-<!--  </ng-container>-->
-
-<!--  <ng-container matColumnDef="lastName">-->
-<!--    <th class="text-align-center" mat-header-cell *matHeaderCellDef>Lastname</th>-->
-<!--    <td class="text-align-center" mat-cell *matCellDef="let contact">{{contact.lastName}}</td>-->
-<!--  </ng-container>-->
-
-<!--  <ng-container matColumnDef="number">-->
-<!--    <th class="text-align-center" mat-header-cell *matHeaderCellDef>Number</th>-->
-<!--    <td class="text-align-center" mat-cell *matCellDef="let contact">{{contact.number}}</td>-->
-<!--  </ng-container>-->
-
-<!--  <ng-container matColumnDef="detailInfo">-->
-<!--    <th class="text-align-center" mat-header-cell *matHeaderCellDef>Detail Info</th>-->
-<!--    <td class="text-align-center; link" *matCellDef="let contact" mat-cell routerLink="{{contact.id}}">Contact Details-->
-<!--    </td>-->
-<!--  </ng-container>-->
-
-<!--  <ng-container matColumnDef="deleteButton">-->
-<!--    <th mat-header-cell *matHeaderCellDef></th>-->
-<!--    <td mat-cell>-->
-<!--      <button mat-button type="button" class=" delete-button" *matCellDef="let contact"-->
-<!--              (click)="deleteContact(contact.id)">Delete-->
-<!--      </button>-->
-<!--    </td>-->
-<!--  </ng-container>-->
-
-<!--  <ng-container matColumnDef="updateButton">-->
-<!--    <th mat-header-cell *matHeaderCellDef></th>-->
-<!--    <td mat-cell>-->
-<!--      <button mat-button type="button" class=" update-button" *matCellDef="let contact"-->
-<!--              (click)="updateContact(contact)">Update-->
-<!--      </button>-->
-<!--    </td>-->
-<!--  </ng-container>-->
-
-<!--  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
-<!--  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>-->
-<!--</table>-->
