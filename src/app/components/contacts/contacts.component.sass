@@ -19,7 +19,6 @@ table
   width: 750px
   border: 1px solid silver
   border-radius: 10px
-  height: auto
 
 table.mat-table
   border-spacing: 5px
@@ -95,9 +94,8 @@ mat-form-field
     flex-direction: column
 
   table
-    min-width: 340px
+    min-width: 330px
     max-width: 380px
-    min-height: 300px
 
   .update-button
     left: 0
@@ -114,3 +112,31 @@ mat-form-field
     display: flex
     flex-direction: column
     align-items: center
+
+@media screen and (max-width: 1067px)
+  .card-for-laptop
+   display: none
+
+  .card-for-phone
+    display: block
+
+  .wrapper
+    display: flex
+    flex-direction: column
+    align-items: center
+
+  .update-button
+    left: 0
+    margin: 3px 0
+
+  .delete-button
+    margin-right: 2px
+
+  .update-button, .delete-button
+    height: 40px
+    width: 70px
+
+@media (max-width: 1067px) and (min-width: 480px)
+  .table-container
+    width: 80%
+    overflow-y: auto

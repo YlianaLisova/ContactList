@@ -11,19 +11,45 @@
           </label>
         </div>
       </div>
-      <button class="btn" type="submit">Search</button>
+      <button mat-button type="submit" class="button">Search
+      </button>
     </form>
   </section>
-  <div class="list">
-    <div class="contact" *ngFor="let contact of contacts">
-      <div>
-        <div>Name: {{contact.name}}</div>
-        <div>Lastname: {{contact.lastName}}</div>
-        <div>Number: {{contact.number}}</div>
-        <div>Gender: {{contact.gender}}</div>
-        <div>Email: {{contact.email}}</div>
-        <div>Date of birth: {{contact.dateOfBirth || '-'}}</div>
-      </div>
-    </div>
+  <div class="table-container">
+    <table class="mat-elevation-z8; demo-table" mat-table [dataSource]="contacts">
+      <ng-container matColumnDef="name">
+        <th class="text-align-center" mat-header-cell *matHeaderCellDef>Name</th>
+        <td class="text-align-center" mat-cell *matCellDef="let contact">{{contact.name}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="lastName">
+        <th class="text-align-center" mat-header-cell *matHeaderCellDef>Lastname</th>
+        <td class="text-align-center" mat-cell *matCellDef="let contact">{{contact.lastName}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="number">
+        <th class="text-align-center" mat-header-cell *matHeaderCellDef>Number</th>
+        <td class="text-align-center" mat-cell *matCellDef="let contact">{{contact.number}}</td>
+      </ng-container>
+      <ng-container matColumnDef="gender">
+        <th class="text-align-center" mat-header-cell *matHeaderCellDef>Gender</th>
+        <td class="text-align-center; link" *matCellDef="let contact" mat-cell >{{contact.gender}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let contact">{{contact.email}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="dateOfBirth">
+        <th mat-header-cell *matHeaderCellDef>Date of birth</th>
+        <td mat-cell *matCellDef="let contact">{{contact.dateOfBirth}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
   </div>
 </div>
+
