@@ -1,29 +1,37 @@
 div.container
   height: 70px
-  padding: 0 6%
+  padding: 0 1%
   background-color: #343333
   color: white
   display: flex
   justify-content: space-between
   align-items: center
   font-size: xx-large
+
   div
-       a
-         text-decoration: none
-         color: snow
-         margin-left: 4px
+    a
+      text-decoration: none
+      color: snow
+      margin-left: 4px
+
+div.toggle-and-search
+  display: flex
+  align-items: center
+  gap: 20px
 
   app-search
     margin-left: 4px
 
+  app-theme-toggle
+    transform: scale(1.5)
 
 
 @media screen and (max-width: 480px)
-   divcontainer
-    font-size: large
-    display: flex
-    .contacts .filter
-       font-size: large
+    .contacts, .filter
+      display: none
+
+    app-theme-toggle
+      display: block
 
     app-search
       width: 160px
@@ -31,3 +39,9 @@ div.container
 @media screen and (max-width: 647px)
   div.container
     font-size: 17px
+
+  .contacts, .filter
+      display: block
+
+  app-theme-toggle
+      display: none

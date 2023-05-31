@@ -24,6 +24,9 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {AuthGuard} from "./guards/auth-guard";
 import {MatTableModule} from "@angular/material/table";
+import {ThemeToggleComponent} from './components/theme-toggle/theme-toggle.component';
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatMenuModule} from "@angular/material/menu";
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'login'},
@@ -50,23 +53,26 @@ const routes: Routes = [
     FilterPageComponent,
     LoginComponent,
     RegisterComponent,
+    ThemeToggleComponent,
   ],
-    imports: [
-        BrowserModule,
-        ReactiveFormsModule,
-        FormsModule,
-        BrowserAnimationsModule,
-        MatSelectModule,
-        HttpClientModule,
-        CommonModule,
-        RouterModule.forRoot(routes),
-        MatCardModule,
-        MatDatepickerModule,
-        MatInputModule,
-        MatIconModule,
-        MatButtonModule,
-        MatTableModule
-    ],
+  imports: [
+    BrowserModule,
+    ReactiveFormsModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    MatSelectModule,
+    HttpClientModule,
+    CommonModule,
+    RouterModule.forRoot(routes),
+    MatCardModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+    MatTableModule,
+    MatSlideToggleModule,
+    MatMenuModule
+  ],
   exports: [
     RouterModule
   ],
