@@ -5,6 +5,7 @@
   <mat-menu #navigationMenu>
     <button mat-menu-item [routerLink]="'contacts'">Contacts</button>
     <button mat-menu-item [routerLink]="'filter'">Filter</button>
+    <button (click)="authService.logout()" mat-menu-item>Log out</button>
   </mat-menu>
   <div class="contacts"><a routerLink="contacts">Contacts</a></div>
   <div class="filter"><a routerLink="filter">Filter</a></div>

@@ -21,6 +21,16 @@ export class AuthService {
     return this.http.post<User>(urls.user, user)
   }
 
+  logout(): void {
+    const access_token = localStorage.getItem('access')
+    this.http.post(`${urls.auth}/logout`, access_token)
+    this.router.navigate(['/login']).then((resolve) => {
+      if (resolve) {
+        localStorage.removeItem('access');
+      }
+    });
+  }
+
   login(user: User) {
     return this.http.post<Token>(`${urls.auth}/login`, user)
   }
