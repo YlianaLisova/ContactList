@@ -6,7 +6,7 @@ div.container
   display: flex
   justify-content: space-between
   align-items: center
-  font-size: xx-large
+  font-size: x-large
 
   div
     a
@@ -25,23 +25,15 @@ div.toggle-and-search
   app-theme-toggle
     transform: scale(1.5)
 
+div.mat-menu
+    display: none
 
-@media screen and (max-width: 480px)
+
+@media screen and (max-width: 600px)
     .contacts, .filter
       display: none
-
-    app-theme-toggle
-      display: block
-
-    app-search
       width: 160px
 
-@media screen and (max-width: 647px)
-  div.container
-    font-size: 17px
+    app-search
+      max-width: 160px
 
-  .contacts, .filter
-      display: block
-
-  app-theme-toggle
-      display: none
