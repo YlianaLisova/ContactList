@@ -14,7 +14,7 @@ import {MatSelectModule} from "@angular/material/select";
 import {FilterPageComponent} from './components/filter-page/filter-page.component';
 import {LoginComponent} from './components/login/login.component';
 import {RegisterComponent} from './components/register/register.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {RouterModule, Routes} from "@angular/router";
 import {CommonModule} from "@angular/common";
 import {MatCardModule} from "@angular/material/card";
@@ -27,6 +27,7 @@ import {MatTableModule} from "@angular/material/table";
 import {ThemeToggleComponent} from './components/theme-toggle/theme-toggle.component';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatMenuModule} from "@angular/material/menu";
+import {TokenInterceptor} from "./interceptors/token.interceptor";
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'login'},
@@ -76,7 +77,11 @@ const routes: Routes = [
   exports: [
     RouterModule
   ],
-  providers: [ContactsComponent],
+  providers: [ContactsComponent, {
+    provide: HTTP_INTERCEPTORS,
+    multi: true,
+    useClass: TokenInterceptor
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

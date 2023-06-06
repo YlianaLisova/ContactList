@@ -25,15 +25,17 @@ div.toggle-and-search
   app-theme-toggle
     transform: scale(1.5)
 
-div.mat-menu
-    display: none
+.mat-menu-button
+  display: none
 
 
 @media screen and (max-width: 600px)
-    .contacts, .filter
-      display: none
-      width: 160px
+  .contacts, .filter
+    display: none
+    width: 160px
 
-    app-search
-      max-width: 160px
+  app-search
+    max-width: 160px
 
+  .mat-menu-button
+    display: block
