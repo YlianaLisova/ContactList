@@ -14,7 +14,7 @@ div.container
       color: snow
       margin-left: 4px
 
-div.toggle-and-search
+div.search
   display: flex
   align-items: center
   gap: 20px
@@ -29,13 +29,9 @@ div.toggle-and-search
   display: none
 
 
-@media screen and (max-width: 600px)
-  .contacts, .filter
-    display: none
-    width: 160px
+.contacts, .filter
+  display: none
+  width: 160px
 
-  app-search
-    max-width: 160px
-
-  .mat-menu-button
-    display: block
+.mat-menu-button
+  display: block
