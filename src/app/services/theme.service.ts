@@ -12,6 +12,5 @@ export class ThemeService {
   toggleTheme(): void {
     this.currentTheme = this.currentTheme === 'light' ? 'dark' : 'light';
     document.body.classList.toggle('dark-theme', this.currentTheme === 'dark');
-    // You can also store the current theme preference in local storage or a cookie.
   }
 }
