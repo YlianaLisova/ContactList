@@ -4,7 +4,7 @@ import {ThemeService} from "../../services/theme.service";
 @Component({
   selector: 'app-theme-toggle',
   templateUrl: './theme-toggle.component.html',
-  styleUrls: ['./theme-toggle.component.css']
+  styleUrls: ['./theme-toggle.component.sass']
 })
 export class ThemeToggleComponent implements OnInit {
 

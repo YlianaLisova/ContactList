@@ -13,15 +13,15 @@ form
   display: flex
   flex-direction: column
   gap: 8px
-  width: 300px
 
 table
-  width: 750px
+  width: 760px
   border: 1px solid silver
   border-radius: 10px
 
 table.mat-table
   border-spacing: 5px
+  overflow-y: auto
 
 
 .update-button, .delete-button
@@ -96,6 +96,10 @@ mat-form-field
   table
     min-width: 330px
     max-width: 380px
+
+  .table-container
+    width: 100%
+    overflow-y: auto
 
   .update-button
     left: 0
