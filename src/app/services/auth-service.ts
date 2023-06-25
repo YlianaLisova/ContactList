@@ -21,14 +21,15 @@ export class AuthService {
     return this.http.post<User>(urls.user, user)
   }
 
-  logout(): void {
-    const access_token = localStorage.getItem('access')
-    this.http.post(`${urls.auth}/logout`, access_token)
-    this.router.navigate(['/login']).then((resolve) => {
-      if (resolve) {
-        localStorage.removeItem('access');
-      }
-    });
+  logout() {
+    const access_token = localStorage.getItem('access');
+    this.http.post(`${urls.auth}/logout`, {access_token}).subscribe(() => {
+      this.router.navigate(['/login']).then((resolve) => {
+        if (resolve) {
+          this.deleteToken()
+        }
+      })
+    })
   }
 
   login(user: User) {
@@ -38,7 +39,7 @@ export class AuthService {
   refresh(): Observable<Token> {
     const refresh = this.getRefreshToken();
     return this.http.post<Token>(`${urls.auth}/refresh`, {refresh}).pipe(
-      tap((tokens: Token)=>{
+      tap((tokens: Token) => {
         this.setToken(tokens)
       })
     )
@@ -52,6 +53,7 @@ export class AuthService {
   getAccessToken(): string {
     return localStorage.getItem(this.accessTokenKey) as string;
   }
+
   getRefreshToken(): string {
     return localStorage.getItem(this.refreshTokenKey) as string;
   }
