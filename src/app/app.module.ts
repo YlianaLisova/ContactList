@@ -27,7 +27,7 @@ import {MatTableModule} from "@angular/material/table";
 import {ThemeToggleComponent} from './components/theme-toggle/theme-toggle.component';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatMenuModule} from "@angular/material/menu";
-import {TokenInterceptor} from "./interceptors/token.interceptor";
+import {AuthInterceptor} from "./interceptors/auth.interceptor";
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'login'},
@@ -77,11 +77,7 @@ const routes: Routes = [
   exports: [
     RouterModule
   ],
-  providers: [ContactsComponent, {
-    provide: HTTP_INTERCEPTORS,
-    multi: true,
-    useClass: TokenInterceptor
-  }],
+  providers: [ContactsComponent, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule {

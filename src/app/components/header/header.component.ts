@@ -11,6 +11,10 @@ export class HeaderComponent implements OnInit {
   constructor(public authService: AuthService) {
   }
 
+  logout(): void {
+    this.authService.logout();
+  }
+
   ngOnInit(): void {
   }
 
