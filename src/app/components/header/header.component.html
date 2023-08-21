@@ -1,5 +1,18 @@
 <div class="container">
-  <div><a routerLink="contacts">Contacts List</a></div>
-  <div><a routerLink="filter">Filter</a></div>
-  <app-search></app-search>
+  <button class="mat-menu-button" mat-icon-button [mat-menu-trigger-for]="navigationMenu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #navigationMenu>
+    <button mat-menu-item>
+      <app-theme-toggle></app-theme-toggle>
+    </button>
+    <button mat-menu-item [routerLink]="'contacts'">Contacts</button>
+    <button mat-menu-item [routerLink]="'filter'">Filter</button>
+    <button (click)="logout()" mat-menu-item>Log out</button>
+  </mat-menu>
+  <div class="contacts"><a routerLink="contacts">Contacts</a></div>
+  <div class="filter"><a routerLink="filter">Filter</a></div>
+  <div class="search">
+    <app-search></app-search>
+  </div>
 </div>

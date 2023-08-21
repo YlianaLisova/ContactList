@@ -4,7 +4,6 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppComponent} from './app.component';
 import {ContactsComponent} from './components/contacts/contacts.component';
 import {MainLayoutComponent} from './layouts/main-layout/main-layout.component';
-import {AppRoutingModule} from "./app-routing.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HeaderComponent} from './components/header/header.component';
 import {ContactComponent} from './components/contact/contact.component';
@@ -13,6 +12,35 @@ import {SearchPipe} from './common/search.pipe';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSelectModule} from "@angular/material/select";
 import {FilterPageComponent} from './components/filter-page/filter-page.component';
+import {LoginComponent} from './components/login/login.component';
+import {RegisterComponent} from './components/register/register.component';
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {RouterModule, Routes} from "@angular/router";
+import {CommonModule} from "@angular/common";
+import {MatCardModule} from "@angular/material/card";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatInputModule} from "@angular/material/input";
+import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
+import {AuthGuard} from "./guards/auth-guard";
+import {MatTableModule} from "@angular/material/table";
+import {ThemeToggleComponent} from './components/theme-toggle/theme-toggle.component';
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatMenuModule} from "@angular/material/menu";
+import {AuthInterceptor} from "./interceptors/auth.interceptor";
+
+const routes: Routes = [
+  {path: '', pathMatch: 'full', redirectTo: 'login'},
+  {
+    path: '', component: MainLayoutComponent, children: [
+      {path: 'contacts', component: ContactsComponent, canActivate: [AuthGuard]},
+      {path: 'contacts/:id', component: ContactComponent, canActivate: [AuthGuard]},
+      {path: 'filter', component: FilterPageComponent, canActivate: [AuthGuard]},
+    ]
+  },
+  {path: 'register', component: RegisterComponent},
+  {path: 'login', component: LoginComponent}
+]
 
 @NgModule({
   declarations: [
@@ -24,16 +52,33 @@ import {FilterPageComponent} from './components/filter-page/filter-page.componen
     SearchComponent,
     SearchPipe,
     FilterPageComponent,
+    LoginComponent,
+    RegisterComponent,
+    ThemeToggleComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        ReactiveFormsModule,
-        FormsModule,
-        BrowserAnimationsModule,
-        MatSelectModule
-    ],
-  providers: [ContactsComponent],
+  imports: [
+    BrowserModule,
+    ReactiveFormsModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    MatSelectModule,
+    HttpClientModule,
+    CommonModule,
+    RouterModule.forRoot(routes),
+    MatCardModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+    MatTableModule,
+    MatSlideToggleModule,
+    MatMenuModule
+  ],
+  exports: [
+    RouterModule
+  ],
+  providers: [ContactsComponent, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

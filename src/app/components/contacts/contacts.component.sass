@@ -1,92 +1,146 @@
-div.container
-  margin: 3% 34%
-
-  form
-    border: 1px solid black
-    padding: 8% 2%
-    width: 400px
-    display: flex
-    flex-direction: column
-    justify-content: center
-    align-items: center
-    border-radius: 10px
-    background-color: #8bafa9
-    color: snow
-
-    input
-      margin-bottom: 6px
-      margin-left: 5px
-
-    div
-      h2
-        margin-left: 37%
-
-      div.error
-        color: darkred
-
-      button
-        border-radius: 4px
-        height: 30px
-        width: 150px
-        margin-top: 10px
-        margin-left: 27%
-
-        &:hover
-          background-color: darken(#4f7070, 6%)
-          color: snow
-          cursor: pointer
-    div
-      label
-        mat-form-field
-          font-size: 11px
-          color: snow
-          height: 42px
-          mat-label.select-label
-            font-size: 12px
-          mat-select
-            mat-option
-              color: snow
-
-div.contact
-  border: 1px solid black
-  height: 200px
-  width: 250px
-  display: flex
-  flex-direction: column
-  justify-content: center
-  align-items: center
-  border-radius: 7px
-  margin-bottom: 20px
-  background-color: darkgray
-  color: #3f3352
-
-  div
-    button
-      border-radius: 4px
-      height: 25px
-      width: 65px
-      margin-top: 10px
-      margin-left: 9px
-
-      &:hover
-        background-color: darken(#4f7070, 6%)
-        color: snow
-        cursor: pointer
-
-  div.link
-    margin-top: 10px
-    margin-left: 16%
-
-  a
-    text-decoration: none
-    color: #3f3352
-
-    &:hover
-      color: #0c804c
-
-
-div.list
+.wrapper
   display: flex
   justify-content: space-around
-  flex-wrap: wrap
-  margin: 0 7% 0 7%
+  margin: 2% 0
+
+.card-for-laptop, .card-for-phone
+  border: 1px solid silver
+  border-radius: 10px
+  padding: 2em 2em
+  height: 420px
+
+form
+  display: flex
+  flex-direction: column
+  gap: 8px
+
+table
+  width: 760px
+  border: 1px solid silver
+  border-radius: 10px
+
+table.mat-table
+  border-spacing: 5px
+  overflow-y: auto
+
+
+.update-button, .delete-button
+  height: 47px
+  width: 150px
+  border-radius: 7px
+  background-color: #9a9a9a
+  color: snow
+
+.update-button
+  left: 20px
+
+.update-button:hover, .delete-button:hover
+  background-color: #6c6c6c
+  cursor: pointer
+
+.text-align-center
+  text-align: center
+
+.link
+  text-decoration: none
+  text-align: center
+  box-sizing: border-box
+  padding-left: 20px
+
+.link:hover
+  cursor: pointer
+
+.submit-button
+  width: 200px
+  height: 40px
+  border: 1px solid silver
+  border-radius: 7px
+  position: relative
+  background-color: #9a9a9a
+  color: snow
+
+.submit-button.active:hover
+  background-color: #6c6c6c
+  color: snow
+
+mat-card-actions
+  display: flex
+  justify-content: center
+
+mat-card-header
+  display: flex
+  justify-content: center
+
+
+mat-form-field
+  border: 1px solid silver
+
+.mat-button
+  color: snow !important
+
+.card-for-phone
+  display: none
+
+
+@media screen and (max-width: 480px)
+  .card-for-laptop
+    display: none
+
+  .card-for-phone
+    display: block
+
+  .wrapper
+    display: flex
+    flex-direction: column
+
+  table
+    min-width: 330px
+    max-width: 380px
+
+  .table-container
+    width: 100%
+    overflow-y: auto
+
+  .update-button
+    left: 0
+    margin: 3px 0
+
+  .delete-button
+    margin-top: 1px
+
+  .update-button, .delete-button
+    height: 40px
+    width: 80px
+
+  .card-for-phone
+    display: flex
+    flex-direction: column
+    align-items: center
+
+@media screen and (max-width: 1067px)
+  .card-for-laptop
+   display: none
+
+  .card-for-phone
+    display: block
+
+  .wrapper
+    display: flex
+    flex-direction: column
+    align-items: center
+
+  .update-button
+    left: 0
+    margin: 3px 0
+
+  .delete-button
+    margin-right: 2px
+
+  .update-button, .delete-button
+    height: 40px
+    width: 70px
+
+@media (max-width: 1067px) and (min-width: 480px)
+  .table-container
+    width: 80%
+    overflow-y: auto

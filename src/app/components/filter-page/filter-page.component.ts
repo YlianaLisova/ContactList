@@ -16,6 +16,7 @@ export class FilterPageComponent implements OnInit {
   public localStorageContacts: Contact[];
   public contacts: Contact[];
   public gendersArray: string[] = this.contactsComponent.genders;
+  public readonly displayedColumns = ['name', 'lastName', 'number', 'gender', 'email', 'dateOfBirth'];
 
   constructor(private localStorageService: LocalStorageService, public contactsComponent: ContactsComponent, private formBuilder: FormBuilder) {
     this.formCreator();

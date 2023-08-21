@@ -1,0 +1,63 @@
+.wrapper
+  padding: 16px
+  display: flex
+  justify-content: center
+
+  .card
+    display: flex
+    flex-direction: column
+    align-items: center
+    width: 420px
+    height: 60%
+    background-color: white
+    border-radius: 30px
+    margin-top: 10%
+    border: 2px solid black
+
+  .title
+    font-size: xxx-large
+    font-weight: normal
+    line-height: normal
+
+  .submit-button
+    height: 50px
+    width: 420px
+    border-radius: 2em
+    font-size: x-large
+    margin-bottom: 7px
+    background-color: #9a9a9a
+    color: snow
+
+  .submit-button:hover:enabled
+    cursor: pointer
+    background-color: #6c6c6c
+    color: snow
+
+.form-field
+  padding: 0 2em
+  border-radius: 2em
+  margin-bottom: 1.5em
+  width: 360px
+  border: 1px solid silver
+
+.error-message
+  color: snow
+
+.register-link
+  font-size: x-large
+  font-weight: normal
+  line-height: normal
+  color: black
+
+.register-link:hover
+  cursor: pointer
+
+@media screen and (max-width: 480px)
+  .card
+    width: 300px !important
+
+  .form-field
+    width: 250px
+
+  .submit-button
+    width: 310px !important

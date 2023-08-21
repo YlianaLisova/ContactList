@@ -1,0 +1,68 @@
+.wrapper
+  padding: 16px
+  display: flex
+  justify-content: center
+
+  .card
+    display: flex
+    flex-direction: column
+    align-items: center
+    width: 450px
+    height: 60%
+    background-color: white
+    border-radius: 30px
+    border: 2px solid black
+    margin-top: 5%
+
+  .title
+    font-size: xxx-large
+    font-weight: normal
+    line-height: normal
+    color: black
+
+  .passwordError
+    color: snow
+    font-size: medium
+  .errors-wrapper
+    color: #ea3131
+    font-size: x-large
+    display: flex
+    flex-direction: column
+    align-items: center
+
+  .submit-button
+    height: 50px
+    width: 459px
+    border-radius: 2em
+    font-size: x-large
+    margin-bottom: 7px
+    background-color: #9a9a9a
+    color: snow
+
+  .submit-button:hover:enabled
+    cursor: pointer
+    background-color: #6c6c6c
+    color: snow
+.form-field
+  padding: 0 2em
+  border-radius: 2em
+  margin-bottom: 1.5em
+  width: 400px
+  border: 1px solid silver
+
+.login-link
+  font-size: x-large
+  font-weight: normal
+  line-height: normal
+  color: black
+
+.login-link:hover
+  cursor: pointer
+
+@media screen and (max-width: 480px)
+  .card
+    width: 290px !important
+  .form-field
+    width: 230px
+  .submit-button
+    width: 290px !important
